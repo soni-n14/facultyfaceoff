@@ -154,10 +154,16 @@ public abstract class Tower {
         target = findTarget(enemies);
 
         if (target == null || target.isDead()) {
-            state = TowerState.IDLE;
-            cooldownTimer = cooldown;
-            shootAnimationTimer = 0;
-        } 
+
+            if (shootAnimationTimer > 0) {
+                shootAnimationTimer -= deltaTime;
+                state = TowerState.SHOOTING;
+            } 
+            else {
+                state = TowerState.IDLE;
+                cooldownTimer = cooldown;
+            }
+        }
         else {
             faceTarget(target);
 
