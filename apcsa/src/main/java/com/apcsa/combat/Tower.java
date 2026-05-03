@@ -33,6 +33,8 @@ public abstract class Tower {
 
     protected boolean removed;
 
+    protected double rotationDeg;
+
     protected int animationFrame;
     protected double animationFrameTimer;
     protected int animationFrameCount = 7;
@@ -98,13 +100,19 @@ public abstract class Tower {
      * @return the first enemy in range, or null if no enemy is in range
      */
     public Enemy findTarget(ArrayList<Enemy> enemies) {
+        Enemy farthest = null;
+        double farthestX = -999999;
+
         for (Enemy enemy : enemies) {
             if (enemy != null && !enemy.isDead() && isInRange(enemy)) {
-                return enemy;
+                if (enemy.getX() > farthestX) {
+                    farthestX = enemy.getX();
+                    farthest = enemy;
+                }
             }
         }
 
-        return null;
+        return farthest;
     }
 
     /**
@@ -129,7 +137,10 @@ public abstract class Tower {
      * @param enemy the enemy this tower should face
      */
     public void faceTarget(Enemy enemy) {
-        // TODO
+        double dx = enemy.getX() - tileX;
+        double dy = enemy.getY() - tileY;
+
+        rotationDeg = Math.toDegrees(Math.atan2(dy, dx)) - 90;
     }
 
     /**
@@ -180,21 +191,20 @@ public abstract class Tower {
         }
     }
 
+    //getters
     public String getName(){
         return getClass().getSimpleName();
     }
-
-    //getters
     public int getDamage() {
         return damage;
     }
     public int getRange() {
         return range;
     }
-    public int getTileX() {
+    public double getTileX() {
         return tileX;
     }
-    public int getTileY() {
+    public double getTileY() {
         return tileY;
     }
     public double getCooldown() {
@@ -218,9 +228,11 @@ public abstract class Tower {
     public int getAnimationFrame(){
         return animationFrame;
     }
-
     public int getAnimationFrameCount(){
         return animationFrameCount;
+    }
+    public double getRotationDeg(){
+        return rotationDeg;
     }
 
     //abstract methods

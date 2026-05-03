@@ -1,6 +1,6 @@
 package com.apcsa;
 
-import com.apcsa.combat.enemies.FulkSmallestMinion;
+import com.apcsa.combat.enemies.BFB;
 import com.apcsa.combat.towers.Signore;
 
 public class TestCombat {
@@ -9,10 +9,8 @@ public class TestCombat {
 
         GameWorld.startGameLoop();
 
-        new Signore(4, 4);
-        new Signore(1,2);
-        new Signore(5,7);
-        new FulkSmallestMinion(0, 0);
+        new Signore(6, 2);
+        new BFB(1, 1);
 
     }
 }
