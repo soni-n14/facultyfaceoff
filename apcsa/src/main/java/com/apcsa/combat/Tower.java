@@ -1,6 +1,6 @@
 package com.apcsa.combat;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.apcsa.GameWorld;
 
@@ -99,7 +99,7 @@ public abstract class Tower {
      * @param enemies the list of enemies currently in the game
      * @return the first enemy in range, or null if no enemy is in range
      */
-    public Enemy findTarget(ArrayList<Enemy> enemies) {
+    public Enemy findTarget(List<Enemy> enemies) {
         Enemy farthest = null;
         double farthestX = -999999;
 
@@ -150,7 +150,7 @@ public abstract class Tower {
      * @param deltaTime the amount of time, in seconds, since the last update
      * @param enemies the list of enemies currently in the game
      */
-    public void update(double deltaTime, ArrayList<Enemy> enemies) {
+    public void update(double deltaTime, List<Enemy> enemies) {
         target = findTarget(enemies);
 
         if (target == null || target.isDead()) {

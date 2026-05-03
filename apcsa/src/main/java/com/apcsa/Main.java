@@ -28,6 +28,7 @@ public class Main extends Application {
         stage.show();
 
         TestCombat.runIt();
+        WaveManager.runIt();
     }
 
     public static void main(String[] args) {

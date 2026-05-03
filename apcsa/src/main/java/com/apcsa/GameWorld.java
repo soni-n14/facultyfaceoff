@@ -1,14 +1,15 @@
 package com.apcsa;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.apcsa.combat.Enemy;
 import com.apcsa.combat.Tower;
 
 public class GameWorld {
 
-    public static ArrayList<Enemy> enemies = new ArrayList<>();
-    public static ArrayList<Tower> towers = new ArrayList<>();
+    public static CopyOnWriteArrayList<Enemy> enemies = new CopyOnWriteArrayList<>();
+    public static CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<>();
 
     public static void startGameLoop() {
         Thread gameThread = new Thread(() -> runGameLoop());
@@ -28,52 +29,28 @@ public class GameWorld {
 
             lastTime = now;
 
-            Iterator<Enemy> enemyIt = enemies.iterator();
-
-            while (enemyIt.hasNext()) {
-
-                Enemy enemy = enemyIt.next();
+            for (Enemy enemy : enemies) {
 
                 if (enemy.isDead()) {
-
                     Animations.removeEnemy(enemy);
-                    enemyIt.remove();
-
+                    enemies.remove(enemy);
                 } 
-
                 else {
-
                     enemy.update(deltaTime);
                     Animations.updateUnanimatedEnemy(enemy);
                 }
             }
 
-            Iterator<Tower> towerIt = towers.iterator();
-
-            while (towerIt.hasNext()) {
-
-                Tower tower = towerIt.next();
+            for (Tower tower : towers) {
 
                 if (tower.isRemoved()) {
-
                     Animations.removeTower(tower);
-                    towerIt.remove();
-
-                } else {
-
-                    tower.update(deltaTime, enemies);
+                    towers.remove(tower);
+                } 
+                else {
+                    tower.update(deltaTime, new ArrayList<>(enemies));
                     Animations.updateTower(tower);
                 }
-            }
-
-            //debug logs
-
-            for (Enemy enemy : enemies) {
-                System.out.println("Enemy HP: " + enemy.getHp());
-            }
-
-            for (Tower tower : towers) {
-                System.out.println("Tower state: " + tower.getState());
             }
 
             try {
