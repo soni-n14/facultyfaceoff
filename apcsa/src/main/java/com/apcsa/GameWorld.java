@@ -69,7 +69,7 @@ public class GameWorld {
             //debug logs
 
             for (Enemy enemy : enemies) {
-                //System.out.println("Enemy HP: " + enemy.getHp());
+                System.out.println("Enemy HP: " + enemy.getHp());
             }
 
             for (Tower tower : towers) {
