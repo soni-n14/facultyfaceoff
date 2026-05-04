@@ -98,12 +98,14 @@ public class Animations {
 
                 enemyViews.put(enemy, view);
                 Main.pane.getChildren().add(view);
+                Hover.checkMoved(view, enemy);
             }
 
             view.setImage(img);
 
             view.setX(enemy.getTileX() * DRAW_SIZE - DRAW_SIZE / 2.0);
             view.setY(enemy.getTileY() * DRAW_SIZE - DRAW_SIZE / 2.0);
+
         });
     }
 

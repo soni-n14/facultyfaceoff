@@ -20,16 +20,12 @@ public class Main extends Application {
         pane = new Pane(canvas);
 
         waveText = new Text("Wave: 0");
-        waveText.setX(20);
-        waveText.setY(30);
+        waveText.setX(400);
+        waveText.setY(500);
 
         pane.getChildren().add(waveText);
 
         Scene scene = new Scene(pane, 800, 600);
-
-        //scene.setOnMouseMoved(e -> {
-        //    Hover.moved(e.getX(), e.getY());
-        //});
 
         stage.setScene(scene);
         stage.setTitle("Teacher Defense");
