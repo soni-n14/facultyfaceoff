@@ -1,7 +1,6 @@
 package com.apcsa;
 
-import com.apcsa.combat.enemies.BFB;
-import com.apcsa.combat.towers.Signore;
+import com.apcsa.combat.towers.*;
 
 public class TestCombat {
 

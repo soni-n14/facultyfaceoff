@@ -1,6 +1,6 @@
 package com.apcsa;
 
-import com.apcsa.combat.enemies.BFB;
+import com.apcsa.combat.enemies.*;
 
 import javafx.application.Platform;
 
@@ -9,8 +9,8 @@ public class WaveManager {
     private static int wave = 0;
     private static boolean waveCompleted = false;
     private static int waveCooldown = 5;
-    private static int X = 0;
-    private static int Y = 0;
+    private static double X = 0;
+    private static double Y = 0;
     
     private static boolean cooldownRunning = false;
 
@@ -58,17 +58,31 @@ public class WaveManager {
 
         switch(wave){
             case 1:
-                new BFB(X,Y);
+                new OtherStateFulk(X,Y);
                 pause(1.0);
-                new BFB(X,Y);
+                new OtherStateFulk(X,Y);
                 break;
             case 2:
-                new BFB(X,Y);
+                new OtherStateFulk(X,Y);
                 pause(1.0);
-                new BFB(X,Y);
+                new OtherStateFulk(X,Y);
                 pause(1.0);
-                new BFB(X, Y);
+                new minionFulk(X, Y);
                 break;
+            case 3:
+                new minionFulk(X, Y);
+                pause(0.5);
+                new minionFulk(X, Y);
+                pause(0.5);
+                new minionFulk(X, Y);
+                pause(1.5);
+                new minionFulk(X, Y);
+                pause(0.5);
+                new minionFulk(X, Y);
+                pause(0.5);
+                new minionFulk(X, Y);
+            default:
+                pause(3);
         }
 
         allEnemiesOut = true;

@@ -27,8 +27,6 @@ public class GameWorld {
             double deltaTime = (now - lastTime) / 1_000_000_000.0;
             lastTime = now;
 
-            if(enemies.isEmpty())
-                WaveManager.enemiesIsEmpty();
 
             for (Enemy enemy : enemies) {
 
@@ -41,6 +39,9 @@ public class GameWorld {
                     Animations.updateUnanimatedEnemy(enemy);
                 }
             }
+            
+            if(enemies.isEmpty())
+                WaveManager.enemiesIsEmpty();
 
             for (Tower tower : towers) {
 

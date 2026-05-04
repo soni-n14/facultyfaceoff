@@ -105,8 +105,8 @@ public abstract class Tower {
 
         for (Enemy enemy : enemies) {
             if (enemy != null && !enemy.isDead() && isInRange(enemy)) {
-                if (enemy.getX() > farthestX) {
-                    farthestX = enemy.getX();
+                if (enemy.getTileX() > farthestX) {
+                    farthestX = enemy.getTileX();
                     farthest = enemy;
                 }
             }
@@ -122,8 +122,8 @@ public abstract class Tower {
      * @return true if the enemy is within this tower's range
      */
     public boolean isInRange(Enemy enemy) {
-        int dx = enemy.getTileX() - tileX;
-        int dy = enemy.getTileY() - tileY;
+        double dx = enemy.getTileX() - tileX;
+        double dy = enemy.getTileY() - tileY;
 
         double distance = Math.sqrt(dx * dx + dy * dy);
 
@@ -137,8 +137,8 @@ public abstract class Tower {
      * @param enemy the enemy this tower should face
      */
     public void faceTarget(Enemy enemy) {
-        double dx = enemy.getX() - tileX;
-        double dy = enemy.getY() - tileY;
+        double dx = enemy.getTileX() - tileX;
+        double dy = enemy.getTileY() - tileY;
 
         rotationDeg = Math.toDegrees(Math.atan2(dy, dx)) - 90;
     }

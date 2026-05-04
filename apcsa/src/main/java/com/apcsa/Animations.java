@@ -102,8 +102,8 @@ public class Animations {
 
             view.setImage(img);
 
-            view.setX(enemy.getX() * DRAW_SIZE - DRAW_SIZE / 2.0);
-            view.setY(enemy.getY() * DRAW_SIZE - DRAW_SIZE / 2.0);
+            view.setX(enemy.getTileX() * DRAW_SIZE - DRAW_SIZE / 2.0);
+            view.setY(enemy.getTileY() * DRAW_SIZE - DRAW_SIZE / 2.0);
         });
     }
 

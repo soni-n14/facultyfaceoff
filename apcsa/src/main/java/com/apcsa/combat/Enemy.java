@@ -9,26 +9,20 @@ public abstract class Enemy {
     protected double speed;
     protected int reward;
 
-    protected double x;
-    protected double y;
-
-    protected int tileX;
-    protected int tileY;
+    protected double tileX;
+    protected double tileY;
 
     protected boolean dead;
     protected boolean reachedEnd;
 
-    public Enemy(int tX, int tY, int m, double s, int r) {
+    public Enemy(double tX, double tY, int hpp, double spee, int rewar) {
         tileX = tX;
         tileY = tY;
 
-        this.x = tileX;
-        this.y = tileY;
-
-        maxHp = m;
-        hp = m;
-        speed = s;
-        reward = r;
+        maxHp = hpp;
+        hp = maxHp;
+        speed = spee;
+        reward = rewar;
 
         dead = false;
         reachedEnd = false;
@@ -42,8 +36,7 @@ public abstract class Enemy {
      * @param deltaTime the amount of time, in seconds, since last update
      */
     public void update(double deltaTime) {
-        x += speed * deltaTime;
-        tileX = (int) x;
+        tileX += speed * deltaTime;
     }
 
     /**
@@ -84,19 +77,11 @@ public abstract class Enemy {
         return reward;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public int getTileX() {
+    public double getTileX() {
         return tileX;
     }
 
-    public int getTileY() {
+    public double getTileY() {
         return tileY;
     }
 }
