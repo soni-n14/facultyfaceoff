@@ -25,8 +25,8 @@ public abstract class Tower {
     protected int level;
     protected int maxLevel;
 
-    protected int tileX;
-    protected int tileY;
+    protected double tileX;
+    protected double tileY;
 
     protected Enemy target;
     protected double cooldownTimer;
@@ -46,7 +46,7 @@ public abstract class Tower {
     protected Image bullet;
 
     //constructor
-    public Tower(int tX, int tY){
+    public Tower(double tX, double tY){
         level = 1;
         tileX = tX;
         tileY = tY;

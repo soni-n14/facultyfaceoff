@@ -1,5 +1,7 @@
 package com.apcsa;
 
+import com.apcsa.combat.towers.Signore;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -33,6 +35,8 @@ public class Main extends Application {
 
         TestCombat.runIt();
         WaveManager.runIt();
+        InputManager.setupMouseClick(scene);
+        
     }
 
     public static void main(String[] args) {

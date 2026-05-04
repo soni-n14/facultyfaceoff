@@ -6,7 +6,7 @@ public class Signore extends Tower {
     public static final int BASE_COST = 100;
     public static final int STARTER_RANGE = 4;
     
-    public Signore(int tX, int tY){
+    public Signore(double tX, double tY){
         super(tX, tY);
         maxLevel = 3;
         updateStats(level);
