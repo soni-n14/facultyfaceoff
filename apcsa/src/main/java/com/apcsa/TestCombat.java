@@ -10,7 +10,6 @@ public class TestCombat {
         GameWorld.startGameLoop();
 
         new Signore(6, 2);
-        new BFB(1, 1);
 
     }
 }

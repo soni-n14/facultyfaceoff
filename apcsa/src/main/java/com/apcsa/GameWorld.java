@@ -24,10 +24,11 @@ public class GameWorld {
         while (true) {
 
             long now = System.nanoTime();
-            double deltaTime =
-                (now - lastTime) / 1_000_000_000.0;
-
+            double deltaTime = (now - lastTime) / 1_000_000_000.0;
             lastTime = now;
+
+            if(enemies.isEmpty())
+                WaveManager.enemiesIsEmpty();
 
             for (Enemy enemy : enemies) {
 
