@@ -2,7 +2,9 @@ package com.apcsa.combat;
 
 import java.util.List;
 
+import com.apcsa.Animations;
 import com.apcsa.GameWorld;
+import javafx.scene.image.*;
 
 public abstract class Tower {
 
@@ -40,6 +42,9 @@ public abstract class Tower {
     protected int animationFrameCount = 7;
     protected double animationFrameDuration = 0.2;
 
+    protected double bulletSpeed;
+    protected Image bullet;
+
     //constructor
     public Tower(int tX, int tY){
         level = 1;
@@ -49,6 +54,9 @@ public abstract class Tower {
         shootAnimationTimer = 0;
         removed = false;
         GameWorld.towers.add(this);
+
+        String path = "/fxml/sprites/" + this.getClass().getSimpleName() + "/BULLET.png";
+        //bullet = new Image(Animations.class.getResourceAsStream(path));
     }
 
     //non-abstract methods

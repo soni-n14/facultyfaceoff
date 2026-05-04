@@ -10,6 +10,7 @@ public class Signore extends Tower {
         super(tX, tY);
         maxLevel = 3;
         updateStats(level);
+        bulletSpeed = 20.0;
         cooldownTimer = cooldown;
     }
 
