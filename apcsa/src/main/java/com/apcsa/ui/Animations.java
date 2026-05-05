@@ -1,4 +1,4 @@
-package com.apcsa;
+package com.apcsa.ui;
 
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 
 import java.util.HashMap;
 
+import com.apcsa.Main;
 import com.apcsa.combat.Enemy;
 import com.apcsa.combat.Tower;
 

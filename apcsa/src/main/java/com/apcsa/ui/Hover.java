@@ -1,5 +1,6 @@
-package com.apcsa;
+package com.apcsa.ui;
 
+import com.apcsa.Main;
 import com.apcsa.combat.Enemy;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;

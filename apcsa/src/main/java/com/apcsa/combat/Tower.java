@@ -2,8 +2,9 @@ package com.apcsa.combat;
 
 import java.util.List;
 
-import com.apcsa.Animations;
-import com.apcsa.GameWorld;
+import com.apcsa.ui.Animations;
+import com.apcsa.world.GameWorld;
+
 import javafx.scene.image.*;
 
 public abstract class Tower {

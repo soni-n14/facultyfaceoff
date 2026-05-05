@@ -1,6 +1,7 @@
-package com.apcsa;
+package com.apcsa.ui;
 
 import com.apcsa.combat.towers.Signore;
+import com.apcsa.Main;
 import com.apcsa.combat.Tower;
 import javafx.scene.Scene;
 import javafx.scene.image.*;

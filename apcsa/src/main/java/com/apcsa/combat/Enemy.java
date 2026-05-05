@@ -1,6 +1,6 @@
 package com.apcsa.combat;
 
-import com.apcsa.GameWorld;
+import com.apcsa.world.GameWorld;
 
 public abstract class Enemy {
 

@@ -1,6 +1,9 @@
 package com.apcsa;
 
 import com.apcsa.combat.towers.Signore;
+import com.apcsa.ui.InputManager;
+import com.apcsa.waves.WaveManager;
+import com.apcsa.world.GameWorld;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -61,9 +64,15 @@ public class Main extends Application {
         pane.getChildren().add(rangePreview);
         pane.getChildren().add(towerPreview);
 
-        TestCombat.runIt();
+
+        //main gameloop
+        GameWorld.startGameLoop();
+
+
         WaveManager.runIt();
         InputManager.setUpImageClick(signoreButton);
+
+
     }
 
     public static void main(String[] args) {

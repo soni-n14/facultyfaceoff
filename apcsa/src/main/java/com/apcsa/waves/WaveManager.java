@@ -1,5 +1,6 @@
-package com.apcsa;
+package com.apcsa.waves;
 
+import com.apcsa.Main;
 import com.apcsa.combat.enemies.*;
 
 import javafx.application.Platform;
