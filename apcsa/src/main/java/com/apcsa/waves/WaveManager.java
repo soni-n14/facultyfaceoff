@@ -59,29 +59,285 @@ public class WaveManager {
 
         switch(wave){
             case 1:
-                new OtherStateFulk(X,Y);
-                pause(1.0);
-                new OtherStateFulk(X,Y);
+                new OtherStateFulk(X, Y);
+                pause(1.2);
+                new OtherStateFulk(X, Y);
+                pause(1.2);
+                new OtherStateFulk(X, Y);
                 break;
+
             case 2:
-                new OtherStateFulk(X,Y);
+                new OtherStateFulk(X, Y);
                 pause(1.0);
-                new OtherStateFulk(X,Y);
+                new OtherStateFulk(X, Y);
                 pause(1.0);
-                new minionFulk(X, Y);
+                new OtherStateFulk(X, Y);
+                pause(1.0);
+                new OtherStateFulk(X, Y);
                 break;
+
             case 3:
-                new minionFulk(X, Y);
+                new OtherStateFulk(X, Y);
+                pause(0.9);
+                new OtherStateFulk(X, Y);
+                pause(0.9);
+                new MinionFulk(X, Y);
+                pause(0.9);
+                new OtherStateFulk(X, Y);
+                pause(0.9);
+                new MinionFulk(X, Y);
+                break;
+
+            case 4:
+                new MinionFulk(X, Y);
+                pause(0.8);
+                new MinionFulk(X, Y);
+                pause(0.8);
+                new OtherStateFulk(X, Y);
+                pause(0.8);
+                new MinionFulk(X, Y);
+                pause(0.8);
+                new OtherStateFulk(X, Y);
+                pause(0.8);
+                new MinionFulk(X, Y);
+                break;
+
+            case 5:
+                new MinionFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.7);
+                new OtherStateFulk(X, Y);
+                pause(0.7);
+                new OtherStateFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                break;
+
+            case 6:
+                new ScoutFulk(X, Y);
                 pause(0.5);
-                new minionFulk(X, Y);
+                new OtherStateFulk(X, Y);
+                pause(0.8);
+                new ScoutFulk(X, Y);
                 pause(0.5);
-                new minionFulk(X, Y);
+                new MinionFulk(X, Y);
+                pause(0.8);
+                new MinionFulk(X, Y);
+                pause(0.8);
+                new ScoutFulk(X, Y);
+                pause(0.5);
+                new OtherStateFulk(X, Y);
+                break;
+
+            case 7:
+                new MinionFulk(X, Y);
+                pause(0.6);
+                new MinionFulk(X, Y);
+                pause(0.6);
+                new ScoutFulk(X, Y);
+                pause(0.4);
+                new ScoutFulk(X, Y);
+                pause(0.4);
+                new MinionFulk(X, Y);
+                pause(0.6);
+                new MinionFulk(X, Y);
+                pause(0.6);
+                new ScoutFulk(X, Y);
+                pause(0.4);
+                new MinionFulk(X, Y);
+                break;
+
+            case 8:
+                new SoldierFulk(X, Y);
+                pause(1.0);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new ScoutFulk(X, Y);
+                pause(0.4);
+                new ScoutFulk(X, Y);
+                pause(0.4);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new SoldierFulk(X, Y);
+                pause(1.0);
+                new OtherStateFulk(X, Y);
+                break;
+
+            case 9:
+                new SoldierFulk(X, Y);
+                pause(0.8);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new ScoutFulk(X, Y);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.3);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new SoldierFulk(X, Y);
+                pause(0.8);
+                new MinionFulk(X, Y);
+                break;
+
+            case 10:
+                new BruteFulk(X, Y);
                 pause(1.5);
-                new minionFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.5);
-                new minionFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.5);
-                new minionFulk(X, Y);
+                new ScoutFulk(X, Y);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.3);
+                new SoldierFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.5);
+                new ScoutFulk(X, Y);
+                break;
+
+            case 11:
+                new SoldierFulk(X, Y);
+                pause(0.7);
+                new SoldierFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.4);
+                new MinionFulk(X, Y);
+                pause(0.4);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.4);
+                new SoldierFulk(X, Y);
+                pause(0.7);
+                new BruteFulk(X, Y);
+                break;
+
+            case 12:
+                new BruteFulk(X, Y);
+                pause(1.2);
+                new SoldierFulk(X, Y);
+                pause(0.6);
+                new SoldierFulk(X, Y);
+                pause(0.6);
+                new MinionFulk(X, Y);
+                pause(0.35);
+                new MinionFulk(X, Y);
+                pause(0.35);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.35);
+                new SoldierFulk(X, Y);
+                pause(0.6);
+                new BruteFulk(X, Y);
+                break;
+
+            case 13:
+                new BruteFulk(X, Y);
+                pause(1.0);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new SoldierFulk(X, Y);
+                pause(0.5);
+                new SoldierFulk(X, Y);
+                pause(0.5);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new BruteFulk(X, Y);
+                break;
+
+            case 14:
+                new BruteFulk(X, Y);
+                pause(1.0);
+                new BruteFulk(X, Y);
+                pause(1.0);
+                new SoldierFulk(X, Y);
+                pause(0.5);
+                new SoldierFulk(X, Y);
+                pause(0.5);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new ScoutFulk(X, Y);
+                pause(0.2);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new SoldierFulk(X, Y);
+                pause(0.5);
+                new BruteFulk(X, Y);
+                break;
+
+            case 15:
+                new BruteFulk(X, Y);
+                pause(0.9);
+                new SoldierFulk(X, Y);
+                pause(0.4);
+                new SoldierFulk(X, Y);
+                pause(0.4);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.18);
+                new ScoutFulk(X, Y);
+                pause(0.18);
+                new ScoutFulk(X, Y);
+                pause(0.18);
+                new ScoutFulk(X, Y);
+                pause(0.18);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new SoldierFulk(X, Y);
+                pause(0.4);
+                new SoldierFulk(X, Y);
+                pause(0.4);
+                new BruteFulk(X, Y);
+                pause(0.9);
+                new BruteFulk(X, Y);
+                break;
+
             default:
                 pause(3);
         }
