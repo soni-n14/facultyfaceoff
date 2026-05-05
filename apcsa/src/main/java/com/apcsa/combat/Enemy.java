@@ -1,6 +1,7 @@
 package com.apcsa.combat;
 
 import com.apcsa.world.GameWorld;
+import javafx.geometry.Point2D;
 
 public abstract class Enemy {
 
@@ -14,6 +15,7 @@ public abstract class Enemy {
 
     protected boolean dead;
     protected boolean reachedEnd;
+    protected int pathIndex;
 
     public Enemy(double tX, double tY, int hpp, double spee, int rewar) {
         tileX = tX;
@@ -26,6 +28,7 @@ public abstract class Enemy {
 
         dead = false;
         reachedEnd = false;
+        pathIndex = 1;
 
         GameWorld.enemies.add(this);
     }
@@ -36,7 +39,30 @@ public abstract class Enemy {
      * @param deltaTime the amount of time, in seconds, since last update
      */
     public void update(double deltaTime) {
-        tileX += speed * deltaTime;
+
+        Point2D goingToPoint = GameWorld.pathPoints[pathIndex];
+        Point2D comingFromPoint = GameWorld.pathPoints[pathIndex-1];
+
+        Point2D hypotenusePoint = goingToPoint.subtract(comingFromPoint);
+
+        double vectorX = hypotenusePoint.getX();
+        double vectorY = hypotenusePoint.getY();
+        double hypotenuseDistance = Math.sqrt(vectorX*vectorX + vectorY*vectorY);
+        
+        double currentHypotenuseDistance = Math.sqrt((goingToPoint.getX()-getTileX())*(goingToPoint.getX()-getTileX()) + (goingToPoint.getY()-getTileY())*(goingToPoint.getY()-getTileY()));
+        
+        if(currentHypotenuseDistance <= speed*deltaTime){
+            tileX = goingToPoint.getX();
+            tileY = goingToPoint.getY();
+            pathIndex++;
+            if (pathIndex >= GameWorld.pathPoints.length) {
+                reachedEnd = true;
+            }
+            return;
+        }
+
+        tileX += (speed * deltaTime*vectorX)/hypotenuseDistance;
+        tileY += (speed * deltaTime*vectorY)/hypotenuseDistance;
     }
 
     /**

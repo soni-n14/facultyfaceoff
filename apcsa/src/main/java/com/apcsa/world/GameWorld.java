@@ -8,10 +8,26 @@ import com.apcsa.combat.Tower;
 import com.apcsa.ui.Animations;
 import com.apcsa.waves.WaveManager;
 
+import javafx.geometry.Point2D;
+
 public class GameWorld {
 
     public static CopyOnWriteArrayList<Enemy> enemies = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<>();
+    public static Point2D[] pathPoints = {
+        new Point2D(0, 1), 
+        //pathIndex 1
+        new Point2D(4, 1), 
+        //2
+        new Point2D(4, 4),
+        //3
+        new Point2D(8, 4),
+        //4
+        new Point2D(8, 2), 
+        //5
+        new Point2D(12, 2) //when reach here should destroy enemy
+    };
+
 
     public static void startGameLoop() {
         Thread gameThread = new Thread(() -> runGameLoop());
@@ -32,7 +48,7 @@ public class GameWorld {
 
             for (Enemy enemy : enemies) {
 
-                if (enemy.isDead()) {
+                if (enemy.isDead() || enemy.hasReachedEnd()) {
                     Animations.removeEnemy(enemy);
                     enemies.remove(enemy);
                 } 
