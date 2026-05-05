@@ -14,6 +14,8 @@ public class GameWorld {
 
     public static CopyOnWriteArrayList<Enemy> enemies = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<>();
+    public static CopyOnWriteArrayList<Point2D> occupied = new CopyOnWriteArrayList<>();
+
     public static Point2D[] pathPoints = {
         new Point2D(0.5, 1.5), 
         //pathIndex 1

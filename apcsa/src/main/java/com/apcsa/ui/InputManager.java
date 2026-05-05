@@ -1,8 +1,11 @@
 package com.apcsa.ui;
 
 import com.apcsa.combat.towers.Signore;
+import com.apcsa.world.GameWorld;
 import com.apcsa.Main;
 import com.apcsa.combat.Tower;
+
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.control.Button;
@@ -33,9 +36,12 @@ public class InputManager {
             if(isInPlaceMode){
                 double tX = ((int) e.getX() / 64) + 0.5;
                 double tY = ((int) e.getY() / 64) + 0.5;
-
-                new Signore(tX, tY);
-                isInPlaceMode = false;
+                Point2D spot = new Point2D(tX, tY);
+                if (!GameWorld.occupied.contains(spot)) {
+                    new Signore(tX, tY);
+                    GameWorld.occupied.add(spot);
+                    isInPlaceMode = false;
+                }
             }
             Main.rangePreview.setVisible(isInPlaceMode);
             Main.towerPreview.setVisible(isInPlaceMode);
