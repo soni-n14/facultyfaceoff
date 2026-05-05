@@ -20,7 +20,9 @@ public class Main extends Application {
 
     public static Pane pane;
     public static Text waveText;
+    public static Text timeText;
     public static Button signoreButton;
+    public static Button skipButton;
     public static Scene scene;
 
     public static Circle rangePreview;
@@ -43,17 +45,27 @@ public class Main extends Application {
 
         pane = new Pane(canvas);
 
+        timeText = new Text("0:15");
+        timeText.setX(400);
+        timeText.setY(520);
+
         waveText = new Text("Wave: 0");
         waveText.setX(400);
         waveText.setY(500);
 
         pane.getChildren().add(waveText);
+        pane.getChildren().add(timeText);
 
         signoreButton = new Button("Signore");
         signoreButton.setLayoutX(300);
         signoreButton.setLayoutY(400);
 
+        skipButton = new Button("Skip");
+        skipButton.setLayoutX(200);
+        skipButton.setLayoutY(200);
+
         pane.getChildren().add(signoreButton);
+        pane.getChildren().add(skipButton);
 
         scene = new Scene(pane, 800, 600);
 

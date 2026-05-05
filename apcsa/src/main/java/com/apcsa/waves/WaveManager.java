@@ -21,13 +21,33 @@ public class WaveManager {
         nextWave();
     }
 
+    private static void timerTickDown(){
+        for (int c = 15; c >= 0; c--) {
+            if (waveCompleted) return;
+
+            int b = c;
+            Platform.runLater(() -> {
+                Main.timeText.setText("0:" + String.format("%02d", b));
+            });
+
+            pause(1.0);
+        }
+
+        if (waveCompleted || cooldownRunning) return;
+
+        waveCompleted = true;
+        cooldownRunning = true;
+        waveDoneNowCooldown();
+        cooldownRunning = false;
+    }
+
     private static void waveDoneNowCooldown(){
         for(int c = waveCooldown; c >= 0; c--){
 
             int b = c; //idk why u gotta do this but i searched and u gotta
 
             Platform.runLater(() -> {
-                Main.waveText.setText("Next wave starts in "+b);
+                Main.timeText.setText("0:" + String.format("%02d", b));
             });
 
             pause(1.0);
@@ -38,6 +58,8 @@ public class WaveManager {
 
     private static void nextWave(){
         wave++;
+        waveCompleted = false;
+        allEnemiesOut = false;
         actualWaveDataRunner();
     }
 
@@ -53,6 +75,10 @@ public class WaveManager {
 
     public static void actualWaveDataRunner(){
 
+        Thread timerThread = new Thread(() -> timerTickDown());
+        timerThread.setDaemon(true);
+        timerThread.start();
+
         Platform.runLater(() -> {
             Main.waveText.setText("Wave " + wave);
         });
@@ -60,281 +86,379 @@ public class WaveManager {
         switch(wave){
             case 1:
                 new OtherStateFulk(X, Y);
-                pause(1.2);
+                pause(0.9);
                 new OtherStateFulk(X, Y);
-                pause(1.2);
+                pause(0.9);
+                new OtherStateFulk(X, Y);
+                pause(0.9);
+                new OtherStateFulk(X, Y);
+                pause(0.9);
                 new OtherStateFulk(X, Y);
                 break;
 
             case 2:
                 new OtherStateFulk(X, Y);
-                pause(1.0);
+                pause(0.7);
                 new OtherStateFulk(X, Y);
-                pause(1.0);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.7);
                 new OtherStateFulk(X, Y);
-                pause(1.0);
+                pause(0.7);
+                new MinionFulk(X, Y);
+                pause(0.7);
                 new OtherStateFulk(X, Y);
                 break;
 
             case 3:
-                new OtherStateFulk(X, Y);
-                pause(0.9);
-                new OtherStateFulk(X, Y);
-                pause(0.9);
                 new MinionFulk(X, Y);
-                pause(0.9);
-                new OtherStateFulk(X, Y);
-                pause(0.9);
+                pause(0.45);
                 new MinionFulk(X, Y);
+                pause(0.45);
+                new MinionFulk(X, Y);
+                pause(0.45);
+                new OtherStateFulk(X, Y);
+                pause(0.45);
+                new OtherStateFulk(X, Y);
+                pause(0.45);
+                new MinionFulk(X, Y);
+                pause(0.45);
+                new MinionFulk(X, Y);
+                pause(0.45);
+                new OtherStateFulk(X, Y);
                 break;
 
             case 4:
                 new MinionFulk(X, Y);
-                pause(0.8);
+                pause(0.4);
                 new MinionFulk(X, Y);
-                pause(0.8);
+                pause(0.4);
                 new OtherStateFulk(X, Y);
-                pause(0.8);
-                new MinionFulk(X, Y);
-                pause(0.8);
+                pause(0.35);
                 new OtherStateFulk(X, Y);
-                pause(0.8);
+                pause(0.35);
                 new MinionFulk(X, Y);
+                pause(0.4);
+                new MinionFulk(X, Y);
+                pause(0.4);
+                new ScoutFulk(X, Y);
+                pause(0.3);
+                new ScoutFulk(X, Y);
                 break;
 
             case 5:
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.25);
                 new MinionFulk(X, Y);
-                pause(0.7);
+                pause(0.35);
                 new MinionFulk(X, Y);
-                pause(0.7);
+                pause(0.35);
                 new MinionFulk(X, Y);
-                pause(0.7);
+                pause(0.35);
                 new OtherStateFulk(X, Y);
-                pause(0.7);
-                new OtherStateFulk(X, Y);
-                pause(0.7);
-                new MinionFulk(X, Y);
-                pause(0.7);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.25);
+                new ScoutFulk(X, Y);
+                pause(0.25);
                 new MinionFulk(X, Y);
                 break;
 
             case 6:
-                new ScoutFulk(X, Y);
-                pause(0.5);
-                new OtherStateFulk(X, Y);
-                pause(0.8);
-                new ScoutFulk(X, Y);
-                pause(0.5);
+                new SoldierFulk(X, Y);
+                pause(0.7);
                 new MinionFulk(X, Y);
-                pause(0.8);
+                pause(0.3);
                 new MinionFulk(X, Y);
-                pause(0.8);
+                pause(0.3);
                 new ScoutFulk(X, Y);
-                pause(0.5);
+                pause(0.2);
+                new ScoutFulk(X, Y);
+                pause(0.2);
                 new OtherStateFulk(X, Y);
+                pause(0.25);
+                new OtherStateFulk(X, Y);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.3);
+                new SoldierFulk(X, Y);
                 break;
 
             case 7:
-                new MinionFulk(X, Y);
-                pause(0.6);
-                new MinionFulk(X, Y);
-                pause(0.6);
+                new SoldierFulk(X, Y);
+                pause(0.55);
                 new ScoutFulk(X, Y);
-                pause(0.4);
+                pause(0.18);
                 new ScoutFulk(X, Y);
-                pause(0.4);
-                new MinionFulk(X, Y);
-                pause(0.6);
-                new MinionFulk(X, Y);
-                pause(0.6);
+                pause(0.18);
                 new ScoutFulk(X, Y);
-                pause(0.4);
+                pause(0.18);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new SoldierFulk(X, Y);
+                pause(0.55);
+                new OtherStateFulk(X, Y);
+                pause(0.2);
+                new OtherStateFulk(X, Y);
+                pause(0.2);
                 new MinionFulk(X, Y);
                 break;
 
             case 8:
-                new SoldierFulk(X, Y);
+                new BruteFulk(X, Y);
                 pause(1.0);
-                new MinionFulk(X, Y);
-                pause(0.5);
-                new MinionFulk(X, Y);
-                pause(0.5);
                 new ScoutFulk(X, Y);
-                pause(0.4);
+                pause(0.15);
                 new ScoutFulk(X, Y);
-                pause(0.4);
+                pause(0.15);
+                new ScoutFulk(X, Y);
+                pause(0.15);
                 new MinionFulk(X, Y);
-                pause(0.5);
+                pause(0.25);
+                new MinionFulk(X, Y);
+                pause(0.25);
                 new SoldierFulk(X, Y);
-                pause(1.0);
-                new OtherStateFulk(X, Y);
+                pause(0.45);
+                new ScoutFulk(X, Y);
+                pause(0.15);
+                new ScoutFulk(X, Y);
+                pause(0.15);
+                new MinionFulk(X, Y);
+                pause(0.25);
+                new BruteFulk(X, Y);
                 break;
 
             case 9:
                 new SoldierFulk(X, Y);
-                pause(0.8);
-                new MinionFulk(X, Y);
-                pause(0.5);
-                new MinionFulk(X, Y);
-                pause(0.5);
-                new ScoutFulk(X, Y);
-                pause(0.3);
-                new ScoutFulk(X, Y);
-                pause(0.3);
-                new ScoutFulk(X, Y);
-                pause(0.3);
-                new MinionFulk(X, Y);
-                pause(0.5);
+                pause(0.4);
                 new SoldierFulk(X, Y);
-                pause(0.8);
+                pause(0.4);
+                new ScoutFulk(X, Y);
+                pause(0.15);
+                new ScoutFulk(X, Y);
+                pause(0.15);
+                new ScoutFulk(X, Y);
+                pause(0.15);
+                new ScoutFulk(X, Y);
+                pause(0.15);
                 new MinionFulk(X, Y);
+                pause(0.2);
+                new MinionFulk(X, Y);
+                pause(0.2);
+                new MinionFulk(X, Y);
+                pause(0.2);
+                new OtherStateFulk(X, Y);
+                pause(0.2);
+                new OtherStateFulk(X, Y);
+                pause(0.2);
+                new BruteFulk(X, Y);
                 break;
 
             case 10:
                 new BruteFulk(X, Y);
-                pause(1.5);
-                new MinionFulk(X, Y);
-                pause(0.5);
-                new MinionFulk(X, Y);
-                pause(0.5);
-                new ScoutFulk(X, Y);
-                pause(0.3);
-                new ScoutFulk(X, Y);
-                pause(0.3);
+                pause(0.8);
                 new SoldierFulk(X, Y);
-                pause(0.7);
+                pause(0.35);
+                new SoldierFulk(X, Y);
+                pause(0.35);
                 new MinionFulk(X, Y);
-                pause(0.5);
+                pause(0.18);
+                new MinionFulk(X, Y);
+                pause(0.18);
+                new MinionFulk(X, Y);
+                pause(0.18);
                 new ScoutFulk(X, Y);
+                pause(0.12);
+                new ScoutFulk(X, Y);
+                pause(0.12);
+                new ScoutFulk(X, Y);
+                pause(0.12);
+                new ScoutFulk(X, Y);
+                pause(0.12);
+                new SoldierFulk(X, Y);
+                pause(0.35);
+                new BruteFulk(X, Y);
                 break;
 
             case 11:
-                new SoldierFulk(X, Y);
+                new BruteFulk(X, Y);
+                pause(0.7);
+                new BruteFulk(X, Y);
                 pause(0.7);
                 new SoldierFulk(X, Y);
-                pause(0.7);
-                new MinionFulk(X, Y);
-                pause(0.4);
-                new MinionFulk(X, Y);
-                pause(0.4);
-                new ScoutFulk(X, Y);
-                pause(0.25);
-                new ScoutFulk(X, Y);
-                pause(0.25);
-                new ScoutFulk(X, Y);
-                pause(0.25);
-                new MinionFulk(X, Y);
-                pause(0.4);
+                pause(0.3);
                 new SoldierFulk(X, Y);
-                pause(0.7);
+                pause(0.3);
+                new ScoutFulk(X, Y);
+                pause(0.1);
+                new ScoutFulk(X, Y);
+                pause(0.1);
+                new ScoutFulk(X, Y);
+                pause(0.1);
+                new ScoutFulk(X, Y);
+                pause(0.1);
+                new MinionFulk(X, Y);
+                pause(0.16);
+                new MinionFulk(X, Y);
+                pause(0.16);
+                new MinionFulk(X, Y);
+                pause(0.16);
+                new MinionFulk(X, Y);
+                pause(0.16);
+                new SoldierFulk(X, Y);
+                pause(0.3);
                 new BruteFulk(X, Y);
                 break;
 
             case 12:
                 new BruteFulk(X, Y);
-                pause(1.2);
+                pause(0.65);
                 new SoldierFulk(X, Y);
-                pause(0.6);
+                pause(0.25);
                 new SoldierFulk(X, Y);
-                pause(0.6);
-                new MinionFulk(X, Y);
-                pause(0.35);
-                new MinionFulk(X, Y);
-                pause(0.35);
-                new ScoutFulk(X, Y);
+                pause(0.25);
+                new SoldierFulk(X, Y);
                 pause(0.25);
                 new ScoutFulk(X, Y);
-                pause(0.25);
+                pause(0.09);
                 new ScoutFulk(X, Y);
-                pause(0.25);
+                pause(0.09);
+                new ScoutFulk(X, Y);
+                pause(0.09);
+                new ScoutFulk(X, Y);
+                pause(0.09);
+                new ScoutFulk(X, Y);
+                pause(0.09);
                 new MinionFulk(X, Y);
-                pause(0.35);
-                new SoldierFulk(X, Y);
-                pause(0.6);
+                pause(0.14);
+                new MinionFulk(X, Y);
+                pause(0.14);
+                new MinionFulk(X, Y);
+                pause(0.14);
+                new OtherStateFulk(X, Y);
+                pause(0.14);
+                new OtherStateFulk(X, Y);
+                pause(0.14);
                 new BruteFulk(X, Y);
+                pause(0.65);
+                new SoldierFulk(X, Y);
                 break;
 
             case 13:
                 new BruteFulk(X, Y);
-                pause(1.0);
-                new MinionFulk(X, Y);
-                pause(0.3);
-                new MinionFulk(X, Y);
-                pause(0.3);
-                new MinionFulk(X, Y);
-                pause(0.3);
-                new ScoutFulk(X, Y);
-                pause(0.2);
-                new ScoutFulk(X, Y);
-                pause(0.2);
-                new ScoutFulk(X, Y);
-                pause(0.2);
-                new ScoutFulk(X, Y);
-                pause(0.2);
+                pause(0.55);
+                new BruteFulk(X, Y);
+                pause(0.55);
                 new SoldierFulk(X, Y);
-                pause(0.5);
+                pause(0.22);
                 new SoldierFulk(X, Y);
-                pause(0.5);
+                pause(0.22);
+                new SoldierFulk(X, Y);
+                pause(0.22);
                 new MinionFulk(X, Y);
-                pause(0.3);
+                pause(0.12);
+                new MinionFulk(X, Y);
+                pause(0.12);
+                new MinionFulk(X, Y);
+                pause(0.12);
+                new MinionFulk(X, Y);
+                pause(0.12);
+                new ScoutFulk(X, Y);
+                pause(0.08);
+                new ScoutFulk(X, Y);
+                pause(0.08);
+                new ScoutFulk(X, Y);
+                pause(0.08);
+                new ScoutFulk(X, Y);
+                pause(0.08);
+                new ScoutFulk(X, Y);
+                pause(0.08);
+                new SoldierFulk(X, Y);
+                pause(0.22);
                 new BruteFulk(X, Y);
                 break;
 
             case 14:
                 new BruteFulk(X, Y);
-                pause(1.0);
+                pause(0.5);
+                new SoldierFulk(X, Y);
+                pause(0.18);
+                new SoldierFulk(X, Y);
+                pause(0.18);
+                new SoldierFulk(X, Y);
+                pause(0.18);
+                new SoldierFulk(X, Y);
+                pause(0.18);
+                new ScoutFulk(X, Y);
+                pause(0.07);
+                new ScoutFulk(X, Y);
+                pause(0.07);
+                new ScoutFulk(X, Y);
+                pause(0.07);
+                new ScoutFulk(X, Y);
+                pause(0.07);
+                new ScoutFulk(X, Y);
+                pause(0.07);
+                new ScoutFulk(X, Y);
+                pause(0.07);
+                new MinionFulk(X, Y);
+                pause(0.11);
+                new MinionFulk(X, Y);
+                pause(0.11);
+                new MinionFulk(X, Y);
+                pause(0.11);
+                new MinionFulk(X, Y);
+                pause(0.11);
                 new BruteFulk(X, Y);
-                pause(1.0);
-                new SoldierFulk(X, Y);
-                pause(0.5);
-                new SoldierFulk(X, Y);
-                pause(0.5);
-                new MinionFulk(X, Y);
-                pause(0.3);
-                new MinionFulk(X, Y);
-                pause(0.3);
-                new ScoutFulk(X, Y);
-                pause(0.2);
-                new ScoutFulk(X, Y);
-                pause(0.2);
-                new ScoutFulk(X, Y);
-                pause(0.2);
-                new MinionFulk(X, Y);
-                pause(0.3);
-                new SoldierFulk(X, Y);
                 pause(0.5);
                 new BruteFulk(X, Y);
                 break;
 
             case 15:
                 new BruteFulk(X, Y);
-                pause(0.9);
-                new SoldierFulk(X, Y);
-                pause(0.4);
-                new SoldierFulk(X, Y);
-                pause(0.4);
-                new MinionFulk(X, Y);
-                pause(0.25);
-                new MinionFulk(X, Y);
-                pause(0.25);
-                new ScoutFulk(X, Y);
-                pause(0.18);
-                new ScoutFulk(X, Y);
-                pause(0.18);
-                new ScoutFulk(X, Y);
-                pause(0.18);
-                new ScoutFulk(X, Y);
-                pause(0.18);
-                new MinionFulk(X, Y);
-                pause(0.25);
-                new MinionFulk(X, Y);
-                pause(0.25);
-                new SoldierFulk(X, Y);
-                pause(0.4);
-                new SoldierFulk(X, Y);
-                pause(0.4);
+                pause(0.45);
                 new BruteFulk(X, Y);
-                pause(0.9);
+                pause(0.45);
+                new SoldierFulk(X, Y);
+                pause(0.16);
+                new SoldierFulk(X, Y);
+                pause(0.16);
+                new SoldierFulk(X, Y);
+                pause(0.16);
+                new SoldierFulk(X, Y);
+                pause(0.16);
+                new MinionFulk(X, Y);
+                pause(0.1);
+                new MinionFulk(X, Y);
+                pause(0.1);
+                new MinionFulk(X, Y);
+                pause(0.1);
+                new MinionFulk(X, Y);
+                pause(0.1);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new ScoutFulk(X, Y);
+                pause(0.06);
+                new SoldierFulk(X, Y);
+                pause(0.16);
+                new SoldierFulk(X, Y);
+                pause(0.16);
+                new BruteFulk(X, Y);
+                pause(0.45);
                 new BruteFulk(X, Y);
                 break;
 
@@ -355,11 +479,12 @@ public class WaveManager {
     }
 
     public static void enemiesIsEmpty() {
-        if (allEnemiesOut == true&& !cooldownRunning) {
+        if (allEnemiesOut == true&& !cooldownRunning && !waveCompleted) {
             allEnemiesOut = false;
             cooldownRunning = true;
+            waveCompleted = true;
 
-            Thread cooldownThread = new Thread(() -> { waveDoneNowCooldown(); cooldownRunning = false; });
+            Thread cooldownThread = new Thread(() -> { waveCompleted = true; waveDoneNowCooldown(); cooldownRunning = false; });
 
             cooldownThread.setDaemon(true);
             cooldownThread.start();
