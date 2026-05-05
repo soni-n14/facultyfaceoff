@@ -31,10 +31,10 @@ public class InputManager {
 
         Main.scene.setOnMouseClicked(e -> {
             if(isInPlaceMode){
-                double x = e.getX() / 64;
-                double y = e.getY() / 64;
+                double tX = ((int) e.getX() / 64) + 0.5;
+                double tY = ((int) e.getY() / 64) + 0.5;
 
-                new Signore(x, y);
+                new Signore(tX, tY);
                 isInPlaceMode = false;
             }
             Main.rangePreview.setVisible(isInPlaceMode);
@@ -42,10 +42,16 @@ public class InputManager {
         });
 
         Main.scene.setOnMouseMoved(e -> {
-            Main.rangePreview.setCenterX(e.getX());
-            Main.rangePreview.setCenterY(e.getY());
-            Main.towerPreview.setX(e.getX() - 32);
-            Main.towerPreview.setY(e.getY() - 32);
+            int tileX = (int)(e.getX() / 64);
+            int tileY = (int)(e.getY() / 64);
+
+            double centerX = tileX * 64 + 32;
+            double centerY = tileY * 64 + 32;
+
+            Main.rangePreview.setCenterX(centerX);
+            Main.rangePreview.setCenterY(centerY);
+            Main.towerPreview.setX(centerX - 32);
+            Main.towerPreview.setY(centerY - 32);
         });
 
     }
