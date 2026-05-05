@@ -5,6 +5,7 @@ import com.apcsa.ui.InputManager;
 import com.apcsa.waves.WaveManager;
 import com.apcsa.world.GameWorld;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -42,6 +43,17 @@ public class Main extends Application {
         towerPreview.setFitHeight(64);
 
         Canvas canvas = new Canvas(800, 600);
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(Color.LIGHTGRAY);
+
+        for (int x = 0; x <= 800; x += 64) {
+            gc.strokeLine(x, 0, x, 600);
+        }
+
+        for (int y = 0; y <= 600; y += 64) {
+            gc.strokeLine(0, y, 800, y);
+        }
 
         pane = new Pane(canvas);
 

@@ -15,17 +15,17 @@ public class GameWorld {
     public static CopyOnWriteArrayList<Enemy> enemies = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<>();
     public static Point2D[] pathPoints = {
-        new Point2D(0, 1), 
+        new Point2D(0.5, 1.5), 
         //pathIndex 1
-        new Point2D(4, 1), 
+        new Point2D(4.5, 1.5), 
         //2
-        new Point2D(4, 4),
+        new Point2D(4.5, 4.5),
         //3
-        new Point2D(8, 4),
+        new Point2D(8.5, 4.5),
         //4
-        new Point2D(8, 2), 
+        new Point2D(8.5, 2.5), 
         //5
-        new Point2D(12, 2) //when reach here should destroy enemy
+        new Point2D(12.5, 2.5) //when reach here should destroy enemy
     };
 
 

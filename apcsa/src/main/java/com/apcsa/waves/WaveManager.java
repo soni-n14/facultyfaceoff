@@ -10,8 +10,8 @@ public class WaveManager {
     private static int wave = 0;
     private static boolean waveCompleted = false;
     private static int waveCooldown = 5;
-    private static double X = 0;
-    private static double Y = 1;
+    private static double X = 0.5;
+    private static double Y = 1.5;
     
     private static boolean cooldownRunning = false;
 
