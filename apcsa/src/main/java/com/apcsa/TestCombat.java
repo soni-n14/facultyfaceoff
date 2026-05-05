@@ -8,7 +8,5 @@ public class TestCombat {
 
         GameWorld.startGameLoop();
 
-        new Signore(6, 2);
-
     }
 }
