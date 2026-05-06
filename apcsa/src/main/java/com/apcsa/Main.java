@@ -22,6 +22,7 @@ public class Main extends Application {
     public static Pane pane;
     public static Text waveText;
     public static Text timeText;
+    public static Text moneyText;
     public static Button signoreButton;
     public static Button skipButton;
     public static Scene scene;
@@ -65,8 +66,13 @@ public class Main extends Application {
         waveText.setX(400);
         waveText.setY(500);
 
+        moneyText = new Text("Money: 100");
+        moneyText.setX(300);
+        moneyText.setY(480);
+
         pane.getChildren().add(waveText);
         pane.getChildren().add(timeText);
+        pane.getChildren().addAll(moneyText);
 
         signoreButton = new Button("Signore");
         signoreButton.setLayoutX(300);

@@ -2,6 +2,7 @@ package com.apcsa.waves;
 
 import com.apcsa.Main;
 import com.apcsa.combat.enemies.*;
+import com.apcsa.world.Money;
 
 import javafx.application.Platform;
 
@@ -37,6 +38,7 @@ public class WaveManager {
 
         waveCompleted = true;
         cooldownRunning = true;
+        Money.addMoney(100);
         waveDoneNowCooldown();
         cooldownRunning = false;
     }
@@ -484,7 +486,12 @@ public class WaveManager {
             cooldownRunning = true;
             waveCompleted = true;
 
-            Thread cooldownThread = new Thread(() -> { waveCompleted = true; waveDoneNowCooldown(); cooldownRunning = false; });
+            Thread cooldownThread = new Thread(() -> { 
+                waveCompleted = true; 
+                Money.addMoney(250); 
+                waveDoneNowCooldown(); 
+                cooldownRunning = false; 
+            });
 
             cooldownThread.setDaemon(true);
             cooldownThread.start();

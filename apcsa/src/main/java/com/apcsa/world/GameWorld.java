@@ -50,10 +50,17 @@ public class GameWorld {
 
             for (Enemy enemy : enemies) {
 
-                if (enemy.isDead() || enemy.hasReachedEnd()) {
+                if (enemy.isDead()) {
+                    Money.addMoney(enemy.getReward());
                     Animations.removeEnemy(enemy);
                     enemies.remove(enemy);
                 } 
+
+                else if(enemy.hasReachedEnd()){
+                    Animations.removeEnemy(enemy);
+                    enemies.remove(enemy);
+                }
+
                 else {
                     enemy.update(deltaTime);
                     Animations.updateUnanimatedEnemy(enemy);

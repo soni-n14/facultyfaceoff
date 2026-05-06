@@ -2,6 +2,7 @@ package com.apcsa.ui;
 
 import com.apcsa.combat.towers.Signore;
 import com.apcsa.world.GameWorld;
+import com.apcsa.world.Money;
 import com.apcsa.Main;
 import com.apcsa.combat.Tower;
 
@@ -38,9 +39,11 @@ public class InputManager {
                 double tY = ((int) e.getY() / 64) + 0.5;
                 Point2D spot = new Point2D(tX, tY);
                 if (!GameWorld.occupied.contains(spot)) {
-                    new Signore(tX, tY);
-                    GameWorld.occupied.add(spot);
-                    isInPlaceMode = false;
+                    if(Money.checkMoney(Signore.BASE_COST)){
+                        new Signore(tX, tY);
+                        GameWorld.occupied.add(spot);
+                        isInPlaceMode = false;
+                    }
                 }
             }
             Main.rangePreview.setVisible(isInPlaceMode);

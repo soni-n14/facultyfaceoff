@@ -3,7 +3,7 @@ import com.apcsa.combat.Tower;
 
 public class Signore extends Tower {
 
-    public static final int BASE_COST = 100;
+    public static final int BASE_COST = 50;
     public static final int STARTER_RANGE = 4;
     
     public Signore(double tX, double tY){
