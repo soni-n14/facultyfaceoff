@@ -14,10 +14,16 @@ import javafx.scene.control.Button;
 public class InputManager {
 
     private static boolean isInPlaceMode = false;
+    private static boolean isInTowerSelectedMode = false;
+
     private static String tower = "Signore";
 
     public static void imgClicked(){
+        isInTowerSelectedMode = false;
+        Main.rangePreviewPlaced.setVisible(isInPlaceMode);
+
         Main.rangePreview.setRadius(4 * 64);
+        Main.rangePreviewPlaced.setRadius(4 * 64);
         Image img = new Image(InputManager.class.getResourceAsStream("/fxml/sprites/Signore/PREVIEW.png"));
         Main.towerPreview.setImage(img);
 
@@ -34,19 +40,33 @@ public class InputManager {
     public static void setupMouseClick() {
 
         Main.scene.setOnMouseClicked(e -> {
-            if(isInPlaceMode){
-                double tX = ((int) e.getX() / 64) + 0.5;
-                double tY = ((int) e.getY() / 64) + 0.5;
-                Point2D spot = new Point2D(tX, tY);
-                if (!GameWorld.occupied.contains(spot)) {
-                    if(Money.checkMoney(Signore.BASE_COST)){
-                        new Signore(tX, tY);
-                        GameWorld.occupied.add(spot);
-                        isInPlaceMode = false;
+            double tX = ((int) e.getX() / 64) + 0.5;
+            double tY = ((int) e.getY() / 64) + 0.5;
+            Point2D spot = new Point2D(tX, tY);
+
+            if(isInPlaceMode && !GameWorld.occupied.contains(spot) && Money.checkMoney(Signore.BASE_COST)){
+                new Signore(tX, tY);
+                GameWorld.occupied.add(spot);
+                isInPlaceMode = false;
+            }
+
+            else if(!isInPlaceMode){
+                boolean oneClicked = false;
+                for(Tower tower : GameWorld.towers){
+                    if(tower.getTileX() == tX && tower.getTileY() == tY){
+                        isInTowerSelectedMode = true;
+                        Main.rangePreviewPlaced.setCenterX(tX * 64);
+                        Main.rangePreviewPlaced.setCenterY(tY * 64);
+                        oneClicked = true;
                     }
                 }
+                if(!oneClicked){
+                    isInTowerSelectedMode = false;
+                }
             }
+                
             Main.rangePreview.setVisible(isInPlaceMode);
+            Main.rangePreviewPlaced.setVisible(isInTowerSelectedMode);
             Main.towerPreview.setVisible(isInPlaceMode);
         });
 

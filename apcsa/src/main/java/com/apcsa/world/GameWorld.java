@@ -57,6 +57,7 @@ public class GameWorld {
                 } 
 
                 else if(enemy.hasReachedEnd()){
+                    Health.subtractHealth(enemy.getHp());
                     Animations.removeEnemy(enemy);
                     enemies.remove(enemy);
                 }

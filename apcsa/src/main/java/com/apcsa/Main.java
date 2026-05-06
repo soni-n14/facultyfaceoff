@@ -4,6 +4,7 @@ import com.apcsa.combat.towers.Signore;
 import com.apcsa.ui.InputManager;
 import com.apcsa.waves.WaveManager;
 import com.apcsa.world.GameWorld;
+import com.apcsa.world.Health;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.application.Application;
@@ -23,11 +24,14 @@ public class Main extends Application {
     public static Text waveText;
     public static Text timeText;
     public static Text moneyText;
+    public static Text baseHealthText;
     public static Button signoreButton;
     public static Button skipButton;
     public static Scene scene;
 
     public static Circle rangePreview;
+    public static Circle rangePreviewPlaced;
+
     public static ImageView towerPreview;
 
     @Override
@@ -37,6 +41,12 @@ public class Main extends Application {
         rangePreview.setStroke(Color.GRAY);
         rangePreview.setVisible(false);
         rangePreview.setMouseTransparent(true);
+
+        rangePreviewPlaced = new Circle();
+        rangePreviewPlaced.setFill(Color.rgb(128, 128, 128, 0.25));
+        rangePreviewPlaced.setStroke(Color.GRAY);
+        rangePreviewPlaced.setVisible(false);
+        rangePreviewPlaced.setMouseTransparent(true);
         
         towerPreview = new ImageView();
         towerPreview.setVisible(false);
@@ -70,9 +80,14 @@ public class Main extends Application {
         moneyText.setX(300);
         moneyText.setY(480);
 
+        baseHealthText = new Text(Health.baseHealth+"/"+Health.maxBaseHealth);
+        baseHealthText.setX(200);
+        baseHealthText.setY(460);
+
         pane.getChildren().add(waveText);
         pane.getChildren().add(timeText);
         pane.getChildren().addAll(moneyText);
+        pane.getChildren().addAll(baseHealthText);
 
         signoreButton = new Button("Signore");
         signoreButton.setLayoutX(300);
@@ -93,6 +108,7 @@ public class Main extends Application {
 
         pane.getChildren().add(rangePreview);
         pane.getChildren().add(towerPreview);
+        pane.getChildren().addAll(rangePreviewPlaced);
 
 
         //main gameloop
