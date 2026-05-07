@@ -2,6 +2,7 @@ package com.apcsa;
 
 import com.apcsa.combat.towers.Signore;
 import com.apcsa.ui.InputManager;
+import com.apcsa.ui.UIStyles;
 import com.apcsa.waves.WaveManager;
 import com.apcsa.world.GameWorld;
 import com.apcsa.world.Health;
@@ -73,37 +74,46 @@ public class Main extends Application {
         pane = new Pane(canvas);
 
         timeText = new Text("0:15");
-        timeText.setX(400);
-        timeText.setY(520);
+        timeText.setX(392);
+        timeText.setY(100);
 
         waveText = new Text("Wave: 0");
-        waveText.setX(400);
-        waveText.setY(500);
+        waveText.setX(380);
+        waveText.setY(70);
 
         moneyText = new Text("Money: 100");
-        moneyText.setX(300);
-        moneyText.setY(480);
+        moneyText.setX(650);
+        moneyText.setY(50);
 
         baseHealthText = new Text(Health.baseHealth+"/"+Health.maxBaseHealth);
-        baseHealthText.setX(200);
-        baseHealthText.setY(460);
+        baseHealthText.setX(357);
+        baseHealthText.setY(40);
 
         pane.getChildren().add(waveText);
         pane.getChildren().add(timeText);
         pane.getChildren().addAll(moneyText);
         pane.getChildren().addAll(baseHealthText);
 
+        UIStyles.setWaveText(waveText);
+        UIStyles.setWaveText(timeText);
+        UIStyles.setMoneyText(moneyText);
+        UIStyles.setBaseHealthText(baseHealthText);
+
         signoreButton = new Button("Signore");
-        signoreButton.setLayoutX(300);
-        signoreButton.setLayoutY(400);
+        signoreButton.setLayoutX(350);
+        signoreButton.setLayoutY(500);
 
         farmButton = new Button("Farm");
-        farmButton.setLayoutX(250);
-        signoreButton.setLayoutY(400);
+        farmButton.setLayoutX(500);
+        farmButton.setLayoutY(500);
 
         skipButton = new Button("Skip");
         skipButton.setLayoutX(200);
-        skipButton.setLayoutY(200);
+        skipButton.setLayoutY(500);
+
+        UIStyles.styleTowerPlacementButton(signoreButton);
+        UIStyles.styleTowerPlacementButton(farmButton);
+        UIStyles.styleTowerPlacementButton(skipButton);
 
         pane.getChildren().add(signoreButton);
         pane.getChildren().add(skipButton);
