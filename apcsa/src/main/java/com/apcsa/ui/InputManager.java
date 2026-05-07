@@ -118,4 +118,8 @@ public class InputManager {
         button.setOnMouseClicked(e -> imgClicked(button.getText()));
     }
 
+    public static void inPlacedClickedMode(){
+        
+    }
+
 }
