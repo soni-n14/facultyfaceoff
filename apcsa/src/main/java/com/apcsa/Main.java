@@ -137,6 +137,8 @@ public class Main extends Application {
         WaveManager.runIt();
         InputManager.setUpImageClick(signoreButton);
         InputManager.setUpImageClick(farmButton);
+        
+        InputManager.setUpKeybindManager();
 
 
     }

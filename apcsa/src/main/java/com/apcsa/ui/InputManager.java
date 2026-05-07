@@ -9,6 +9,7 @@ import com.apcsa.combat.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 
 public class InputManager {
@@ -118,8 +119,19 @@ public class InputManager {
         button.setOnMouseClicked(e -> imgClicked(button.getText()));
     }
 
-    public static void inPlacedClickedMode(){
-        
+    public static void setUpKeybindManager(){
+        Main.scene.setOnKeyPressed(e -> pressed(e.getCode()));
+    }
+
+    public static void pressed(KeyCode e){
+        if(e == KeyCode.ESCAPE){
+            isInPlaceMode = false;
+            isInTowerSelectedMode = false;
+
+            Main.rangePreview.setVisible(false);
+            Main.rangePreviewPlaced.setVisible(false);
+            Main.towerPreview.setVisible(false);
+        }
     }
 
 }
