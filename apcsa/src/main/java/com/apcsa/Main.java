@@ -31,6 +31,7 @@ public class Main extends Application {
     public static Button signoreButton;
     public static Button farmButton;
     public static Button skipButton;
+    public static Button upgradeButton;
 
     public static Scene scene;
 
@@ -111,13 +112,21 @@ public class Main extends Application {
         skipButton.setLayoutX(200);
         skipButton.setLayoutY(500);
 
+        upgradeButton = new Button("Upgrade");
+        upgradeButton.setLayoutX(500);
+        upgradeButton.setLayoutY(200);
+
+        upgradeButton.setVisible(false);
+
         UIStyles.styleTowerPlacementButton(signoreButton);
         UIStyles.styleTowerPlacementButton(farmButton);
         UIStyles.styleTowerPlacementButton(skipButton);
+        UIStyles.styleTowerPlacementButton(upgradeButton);
 
         pane.getChildren().add(signoreButton);
         pane.getChildren().add(skipButton);
         pane.getChildren().addAll(farmButton);
+        pane.getChildren().addAll(upgradeButton);
 
         scene = new Scene(pane, 800, 600);
 
@@ -137,7 +146,7 @@ public class Main extends Application {
         WaveManager.runIt();
         InputManager.setUpImageClick(signoreButton);
         InputManager.setUpImageClick(farmButton);
-        
+
         InputManager.setUpKeybindManager();
 
 

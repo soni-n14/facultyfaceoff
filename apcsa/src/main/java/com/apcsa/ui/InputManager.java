@@ -46,6 +46,8 @@ public class InputManager {
 
         Main.rangePreview.setVisible(!isInPlaceMode);
         Main.towerPreview.setVisible(!isInPlaceMode);
+        Main.upgradeButton.setVisible(isInTowerSelectedMode);
+
         if(isInPlaceMode == false){
             isInPlaceMode = true;
             setupMouseClick(clasz);
@@ -88,6 +90,7 @@ public class InputManager {
                         Main.rangePreviewPlaced.setCenterY(tY * 64);
                         Main.rangePreviewPlaced.setRadius(tower.getRange() * 64);
                         oneClicked = true;
+                        insidePlaced(tower);
                     }
                 }
                 if(!oneClicked){
@@ -98,6 +101,7 @@ public class InputManager {
             Main.rangePreview.setVisible(isInPlaceMode);
             Main.rangePreviewPlaced.setVisible(isInTowerSelectedMode);
             Main.towerPreview.setVisible(isInPlaceMode);
+            Main.upgradeButton.setVisible(isInTowerSelectedMode);
         });
 
         Main.scene.setOnMouseMoved(e -> {
@@ -115,6 +119,18 @@ public class InputManager {
 
     }
 
+    public static void insidePlaced(Tower tower){
+
+        Main.upgradeButton.setVisible(true);
+        Main.upgradeButton.setOnMouseClicked(e -> {
+
+            if (tower.upgrade()) {
+                pressed(KeyCode.ESCAPE);
+            }
+        });
+
+    }
+
     public static void setUpImageClick(Button button){
         button.setOnMouseClicked(e -> imgClicked(button.getText()));
     }
@@ -124,6 +140,7 @@ public class InputManager {
     }
 
     public static void pressed(KeyCode e){
+        Main.upgradeButton.setVisible(false);
         if(e == KeyCode.ESCAPE){
             isInPlaceMode = false;
             isInTowerSelectedMode = false;
@@ -131,6 +148,7 @@ public class InputManager {
             Main.rangePreview.setVisible(false);
             Main.rangePreviewPlaced.setVisible(false);
             Main.towerPreview.setVisible(false);
+            Main.upgradeButton.setVisible(false);
         }
     }
 

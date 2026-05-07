@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.apcsa.ui.Animations;
 import com.apcsa.world.GameWorld;
+import com.apcsa.world.Money;
 
 import javafx.scene.image.*;
 
@@ -93,9 +94,10 @@ public abstract class Tower {
      * Checks to see if player can upgrade, if they can, it increases their level, calls function to update stats
      * @param money
      */
-    public boolean upgrade(int money){
-        if (canUpgrade(money)){
+    public boolean upgrade(){
+        if (canUpgrade(Money.getMoney())){
             level++;
+            Money.subtractMoney(upgradeCost);
             updateStats(level);
             return true;
         }

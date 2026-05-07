@@ -23,4 +23,9 @@ public class Money {
         return false;
         
     }
+
+    public static int getMoney(){
+        return money;
+    }
+
 }
