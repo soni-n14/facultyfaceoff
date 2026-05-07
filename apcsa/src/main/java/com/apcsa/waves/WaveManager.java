@@ -1,8 +1,11 @@
 package com.apcsa.waves;
 
 import com.apcsa.Main;
-import com.apcsa.combat.enemies.*;
+import com.apcsa.world.GameWorld;
 import com.apcsa.world.Money;
+import com.apcsa.combat.*;
+import com.apcsa.combat.enemies.*;
+import com.apcsa.combat.towers.Farm;
 
 import javafx.application.Platform;
 
@@ -62,6 +65,13 @@ public class WaveManager {
         wave++;
         waveCompleted = false;
         allEnemiesOut = false;
+
+        for(Tower t : GameWorld.towers){
+            if (t instanceof Farm){
+                ((Farm) t).doYoThing();
+            }
+        }
+
         actualWaveDataRunner();
     }
 

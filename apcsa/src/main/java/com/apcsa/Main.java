@@ -21,12 +21,16 @@ import javafx.scene.image.*;
 public class Main extends Application {
 
     public static Pane pane;
+
     public static Text waveText;
     public static Text timeText;
     public static Text moneyText;
     public static Text baseHealthText;
+
     public static Button signoreButton;
+    public static Button farmButton;
     public static Button skipButton;
+
     public static Scene scene;
 
     public static Circle rangePreview;
@@ -93,12 +97,17 @@ public class Main extends Application {
         signoreButton.setLayoutX(300);
         signoreButton.setLayoutY(400);
 
+        farmButton = new Button("Farm");
+        farmButton.setLayoutX(250);
+        signoreButton.setLayoutY(400);
+
         skipButton = new Button("Skip");
         skipButton.setLayoutX(200);
         skipButton.setLayoutY(200);
 
         pane.getChildren().add(signoreButton);
         pane.getChildren().add(skipButton);
+        pane.getChildren().addAll(farmButton);
 
         scene = new Scene(pane, 800, 600);
 
@@ -117,6 +126,7 @@ public class Main extends Application {
 
         WaveManager.runIt();
         InputManager.setUpImageClick(signoreButton);
+        InputManager.setUpImageClick(farmButton);
 
 
     }

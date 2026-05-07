@@ -16,36 +16,63 @@ public class InputManager {
     private static boolean isInPlaceMode = false;
     private static boolean isInTowerSelectedMode = false;
 
-    private static String tower = "Signore";
+    private static Class<? extends Tower> clasz;
 
-    public static void imgClicked(){
+    public static void imgClicked(String name){
+        try {
+            Class<?> burner = Class.forName("com.apcsa.combat.towers." + name);
+            clasz = (Class<? extends Tower>) burner;
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         isInTowerSelectedMode = false;
         Main.rangePreviewPlaced.setVisible(isInPlaceMode);
 
-        Main.rangePreview.setRadius(4 * 64);
-        Main.rangePreviewPlaced.setRadius(4 * 64);
-        Image img = new Image(InputManager.class.getResourceAsStream("/fxml/sprites/Signore/PREVIEW.png"));
+        double rad = 0;
+
+        try {
+            rad = clasz.getField("STARTER_RANGE").getInt(null) * 64.0;
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        Main.rangePreview.setRadius(rad);
+        
+        Image img = new Image(InputManager.class.getResourceAsStream("/fxml/sprites/" + name + "/PREVIEW.png"));
         Main.towerPreview.setImage(img);
 
         Main.rangePreview.setVisible(!isInPlaceMode);
         Main.towerPreview.setVisible(!isInPlaceMode);
         if(isInPlaceMode == false){
             isInPlaceMode = true;
-            setupMouseClick();
+            setupMouseClick(clasz);
             return;
         }
         isInPlaceMode = false;
     }
 
-    public static void setupMouseClick() {
+    public static void setupMouseClick(Class<? extends Tower> clasz) {
 
         Main.scene.setOnMouseClicked(e -> {
             double tX = ((int) e.getX() / 64) + 0.5;
             double tY = ((int) e.getY() / 64) + 0.5;
             Point2D spot = new Point2D(tX, tY);
 
-            if(isInPlaceMode && !GameWorld.occupied.contains(spot) && Money.checkMoney(Signore.BASE_COST)){
-                new Signore(tX, tY);
+            int cost = 0;
+            try {
+                cost = clasz.getField("BASE_COST").getInt(null);
+            } catch (NoSuchFieldException | IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
+
+            if(isInPlaceMode && !GameWorld.occupied.contains(spot) && Money.checkMoney(cost)){
+                try {
+                    clasz.getConstructor(double.class, double.class).newInstance(tX, tY);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
                 GameWorld.occupied.add(spot);
                 isInPlaceMode = false;
             }
@@ -54,9 +81,11 @@ public class InputManager {
                 boolean oneClicked = false;
                 for(Tower tower : GameWorld.towers){
                     if(tower.getTileX() == tX && tower.getTileY() == tY){
+
                         isInTowerSelectedMode = true;
                         Main.rangePreviewPlaced.setCenterX(tX * 64);
                         Main.rangePreviewPlaced.setCenterY(tY * 64);
+                        Main.rangePreviewPlaced.setRadius(tower.getRange() * 64);
                         oneClicked = true;
                     }
                 }
@@ -86,7 +115,7 @@ public class InputManager {
     }
 
     public static void setUpImageClick(Button button){
-        button.setOnMouseClicked(e -> imgClicked());
+        button.setOnMouseClicked(e -> imgClicked(button.getText()));
     }
 
 }

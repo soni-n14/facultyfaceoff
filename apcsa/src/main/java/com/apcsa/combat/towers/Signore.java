@@ -8,16 +8,14 @@ public class Signore extends Tower {
     
     public Signore(double tX, double tY){
         super(tX, tY);
+        
         maxLevel = 3;
-        updateStats(level);
-        bulletSpeed = 20.0;
         cooldownTimer = cooldown;
+
+        updateStats(level);
     }
 
-    /**
-     * Changes damage, range, cooldown and cost based on level
-     * @param level
-     */
+
     @Override
     public void updateStats(int level){
         switch(level){
@@ -26,18 +24,21 @@ public class Signore extends Tower {
                 range = 4;
                 cooldown = 0.5;
                 upgradeCost = 250;
+                bulletSpeed = 20.0;
                 break;
             case 2:
                 damage = 4;
                 range = 5;
                 cooldown = 0.4;
                 upgradeCost = 600;
+                bulletSpeed = 20.0;
                 break;
             case 3:
                 damage = 5;
                 range = 5;
                 cooldown = 0.2;
                 upgradeCost = -1;
+                bulletSpeed = 20.0;
                 break;
         }
     }
