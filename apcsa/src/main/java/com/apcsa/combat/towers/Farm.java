@@ -39,7 +39,7 @@ public class Farm extends Tower {
                 damage = 0;
                 range = 2;
                 cooldown = 1000;
-                upgradeCost = 750;
+                upgradeCost = 650;
                 bulletSpeed = 0.0;
                 break;
             case 2:
@@ -48,7 +48,7 @@ public class Farm extends Tower {
                 damage = 0;
                 range = 2;
                 cooldown = 1000;
-                upgradeCost = 4000;
+                upgradeCost = 1000;
                 bulletSpeed = 0.0;
                 break;
             case 3:
