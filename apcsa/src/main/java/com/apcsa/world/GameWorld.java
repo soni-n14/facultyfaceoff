@@ -9,6 +9,8 @@ import com.apcsa.ui.Animations;
 import com.apcsa.waves.WaveManager;
 
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class GameWorld {
 
@@ -91,4 +93,24 @@ public class GameWorld {
             }
         }
     }
+
+    public static void paintPathAndOccupy(GraphicsContext gc) {
+        gc.setFill(Color.LIGHTGREEN);
+
+        for (int i = 1; i < pathPoints.length; i++) {
+            double x1 = pathPoints[i - 1].getX();
+            double y1 = pathPoints[i - 1].getY();
+            double x2 = pathPoints[i].getX();
+            double y2 = pathPoints[i].getY();
+
+            for (double x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
+                for (double y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
+                    Point2D p = new Point2D(x, y);
+                    gc.fillRect((x - 0.5) * 64, (y - 0.5) * 64, 64, 64);
+                    if (!occupied.contains(p)) occupied.add(p);
+                }
+            }
+        }
+    }
+
 }

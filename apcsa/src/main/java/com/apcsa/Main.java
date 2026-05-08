@@ -9,6 +9,7 @@ import com.apcsa.world.Health;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -71,6 +72,8 @@ public class Main extends Application {
         for (int y = 0; y <= 600; y += 64) {
             gc.strokeLine(0, y, 800, y);
         }
+
+        GameWorld.paintPathAndOccupy(gc);
 
         pane = new Pane(canvas);
 

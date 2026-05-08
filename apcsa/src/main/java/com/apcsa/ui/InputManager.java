@@ -19,7 +19,7 @@ public class InputManager {
 
     private static Class<? extends Tower> clasz;
 
-    public static void imgClicked(String name){
+    public static void imgNumberClicked(String name){
         try {
             Class<?> burner = Class.forName("com.apcsa.combat.towers." + name);
             clasz = (Class<? extends Tower>) burner;
@@ -53,6 +53,7 @@ public class InputManager {
             setupMouseClick(clasz);
             return;
         }
+
         isInPlaceMode = false;
     }
 
@@ -84,10 +85,11 @@ public class InputManager {
                 boolean oneClicked = false;
                 for(Tower tower : GameWorld.towers){
                     if(tower.getTileX() == tX && tower.getTileY() == tY){
-
                         isInTowerSelectedMode = true;
+
                         Main.rangePreviewPlaced.setCenterX(tX * 64);
                         Main.rangePreviewPlaced.setCenterY(tY * 64);
+
                         Main.rangePreviewPlaced.setRadius(tower.getRange() * 64);
                         oneClicked = true;
                         insidePlaced(tower);
@@ -125,14 +127,14 @@ public class InputManager {
         Main.upgradeButton.setOnMouseClicked(e -> {
 
             if (tower.upgrade()) {
-                pressed(KeyCode.ESCAPE);
+                Main.rangePreviewPlaced.setRadius(tower.getRange() * 64.0);
             }
         });
 
     }
 
     public static void setUpImageClick(Button button){
-        button.setOnMouseClicked(e -> imgClicked(button.getText()));
+        button.setOnMouseClicked(e -> imgNumberClicked(button.getText()));
     }
 
     public static void setUpKeybindManager(){
