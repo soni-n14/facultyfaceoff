@@ -1,3 +1,3 @@
-# teacher-defense-simulator
+# ts mrbeast
 
 ts mrbeast
