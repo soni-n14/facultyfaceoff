@@ -20,6 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 
+
 public class Main extends Application {
 
     public static Pane pane;
@@ -38,11 +39,29 @@ public class Main extends Application {
 
     public static Circle rangePreview;
     public static Circle rangePreviewPlaced;
-
     public static ImageView towerPreview;
 
     @Override
     public void start(Stage stage) {
+        // start menu
+        Pane startPane = new Pane();
+        Button startButton = new Button("START");
+        startButton.setLayoutX(100);
+        startButton.setLayoutY(100);
+        startButton.setPrefSize(100, 100);
+        startButton.setOnAction(e -> {
+            runGame(stage);
+        });
+
+        startPane.getChildren().add(startButton);
+        Scene startScene = new Scene(startPane, 800, 600);
+        
+        stage.setScene(startScene);
+        stage.setTitle("Teacher Defense - Menu");
+        stage.show();
+    }
+
+    public void runGame(Stage stage) {
         rangePreview = new Circle();
         rangePreview.setFill(Color.rgb(128, 128, 128, 0.25));
         rangePreview.setStroke(Color.GRAY);
@@ -61,14 +80,12 @@ public class Main extends Application {
         towerPreview.setFitHeight(64);
 
         Canvas canvas = new Canvas(800, 600);
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        
         gc.setStroke(Color.LIGHTGRAY);
-
         for (int x = 0; x <= 800; x += 64) {
             gc.strokeLine(x, 0, x, 600);
         }
-
         for (int y = 0; y <= 600; y += 64) {
             gc.strokeLine(0, y, 800, y);
         }
@@ -93,10 +110,7 @@ public class Main extends Application {
         baseHealthText.setX(357);
         baseHealthText.setY(40);
 
-        pane.getChildren().add(waveText);
-        pane.getChildren().add(timeText);
-        pane.getChildren().addAll(moneyText);
-        pane.getChildren().addAll(baseHealthText);
+        pane.getChildren().addAll(waveText, timeText, moneyText, baseHealthText);
 
         UIStyles.setWaveText(waveText);
         UIStyles.setWaveText(timeText);
@@ -118,7 +132,6 @@ public class Main extends Application {
         upgradeButton = new Button("Upgrade");
         upgradeButton.setLayoutX(500);
         upgradeButton.setLayoutY(200);
-
         upgradeButton.setVisible(false);
 
         UIStyles.styleTowerPlacementButton(signoreButton);
@@ -126,33 +139,21 @@ public class Main extends Application {
         UIStyles.styleTowerPlacementButton(skipButton);
         UIStyles.styleTowerPlacementButton(upgradeButton);
 
-        pane.getChildren().add(signoreButton);
-        pane.getChildren().add(skipButton);
-        pane.getChildren().addAll(farmButton);
-        pane.getChildren().addAll(upgradeButton);
+        pane.getChildren().addAll(signoreButton, skipButton, farmButton, upgradeButton);
 
         scene = new Scene(pane, 800, 600);
-
         stage.setScene(scene);
         stage.setTitle("Teacher Defense");
         stage.show();
 
-        pane.getChildren().add(rangePreview);
-        pane.getChildren().add(towerPreview);
-        pane.getChildren().addAll(rangePreviewPlaced);
+        pane.getChildren().addAll(rangePreview, towerPreview, rangePreviewPlaced);
 
-
-        //main gameloop
         GameWorld.startGameLoop();
-
-
         WaveManager.runIt();
+        
         InputManager.setUpImageClick(signoreButton);
         InputManager.setUpImageClick(farmButton);
-
         InputManager.setUpKeybindManager();
-
-
     }
 
     public static void main(String[] args) {
