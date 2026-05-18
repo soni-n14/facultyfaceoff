@@ -20,11 +20,11 @@ public class InputManager {
     private static Class<? extends Tower> clasz;
 
     public static void imgNumberClicked(String name){
-        try {
-            Class<?> burner = Class.forName("com.apcsa.combat.towers." + name);
-            clasz = (Class<? extends Tower>) burner;
-
-        } catch (ClassNotFoundException e) {
+        try { 
+            //TODO, Neelehs will do : make a hashmap with name of class assigned to the actual class, then get it using the hashmap . 
+            clasz = (Class<? extends Tower>) Class.forName("com.apcsa.combat.towers." + name);
+        } 
+        catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
