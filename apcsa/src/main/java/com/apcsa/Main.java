@@ -40,27 +40,32 @@ public class Main extends Application {
     public static Circle rangePreview;
     public static Circle rangePreviewPlaced;
     public static ImageView towerPreview;
+@Override
+public void start(Stage stage) {
+    // start menu
+    Pane startPane = new Pane();
 
-    @Override
-    public void start(Stage stage) {
-        // start menu
-        Pane startPane = new Pane();
-        Button startButton = new Button("START");
-        startButton.setLayoutX(100);
-        startButton.setLayoutY(100);
-        startButton.setPrefSize(100, 100);
-        startButton.setOnAction(e -> {
-            runGame(stage);
-        });
+    Text title = new Text("tittle text here ");
+    title.setX(320);
+    title.setY(240);
 
-        startPane.getChildren().add(startButton);
-        Scene startScene = new Scene(startPane, 800, 600);
-        
-        stage.setScene(startScene);
-        stage.setTitle("Teacher Defense - Menu");
-        stage.show();
-    }
+    Button startButton = new Button("START");
 
+    startButton.setLayoutX(350);
+    startButton.setLayoutY(400);
+    startButton.setPrefSize(100, 40);
+
+    startButton.setOnAction(e -> {
+        runGame(stage);
+    });
+
+    startPane.getChildren().addAll(title, startButton);
+    Scene startScene = new Scene(startPane, 800, 600);
+
+    stage.setScene(startScene);
+    stage.setTitle("faccultyfaceoff");
+    stage.show();
+}
     public void runGame(Stage stage) {
         rangePreview = new Circle();
         rangePreview.setFill(Color.rgb(128, 128, 128, 0.25));
