@@ -2,6 +2,7 @@ package com.apcsa.ui;
 
 import com.apcsa.combat.towers.Farm;
 import com.apcsa.combat.towers.Signore;
+import com.apcsa.combat.towers.Kirsh;
 import com.apcsa.world.GameWorld;
 import com.apcsa.world.Money;
 
@@ -35,6 +36,11 @@ public class InputManager {
         towerClasses.put("Farm", Farm.class);
         towerClassesRange.put("Farm", Farm.STARTER_RANGE);
         towerClassesBaseCost.put("Farm",Farm.BASE_COST);
+
+        towerClasses.put("Kirsh", Kirsh.class);
+        towerClassesRange.put("Kirsh", Kirsh.STARTER_RANGE);
+        towerClassesBaseCost.put("Kirsh",Kirsh.BASE_COST);
+
     }
 
     /**

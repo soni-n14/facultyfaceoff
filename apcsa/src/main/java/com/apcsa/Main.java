@@ -33,6 +33,7 @@ public class Main extends Application {
 
     public static Button signoreButton;
     public static Button farmButton;
+    public static Button kirshButton;
     public static Button skipButton;
     public static Button upgradeButton;
 
@@ -150,19 +151,22 @@ public class Main extends Application {
     public void setUpButtons(){
         signoreButton = new Button("Signore");
         farmButton = new Button("Farm");
+        kirshButton = new Button("Kirsh");
         skipButton = new Button("Skip");
         upgradeButton = new Button("Upgrade");
         upgradeButton.setVisible(false);
 
+        UIStyles.styleTowerPlacementButton(kirshButton, 350, 400);
         UIStyles.styleTowerPlacementButton(signoreButton, 350, 500);
         UIStyles.styleTowerPlacementButton(farmButton, 500, 500);
         UIStyles.styleTowerPlacementButton(skipButton, 200, 500);
         UIStyles.styleTowerPlacementButton(upgradeButton, 500, 200);
 
-        pane.getChildren().addAll(signoreButton, skipButton, farmButton, upgradeButton);
+        pane.getChildren().addAll(signoreButton, kirshButton, skipButton, farmButton, upgradeButton);
 
         InputManager.setUpImageClick(signoreButton);
         InputManager.setUpImageClick(farmButton);
+        InputManager.setUpImageClick(kirshButton);
     }
 
     public static void main(String[] args) {
