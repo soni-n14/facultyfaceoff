@@ -7,6 +7,10 @@ public class Health {
     public static int maxBaseHealth = 100;
     public static int baseHealth = 100;
 
+    /**
+     * Subtracts health by the int amount parameter. If the health is less than equal to zero, sets to zero
+     * @param amount
+     */
     public static void subtractHealth(int amount){
         baseHealth -= amount;
         if (baseHealth <= 0){
