@@ -47,23 +47,39 @@ public class UIStyles {
         "-fx-stroke-width: 1.3;";
     
 
-    public static void styleTowerPlacementButton(Button button) {
+    public static void styleTowerPlacementButton(Button button, int x, int y) {
         button.setStyle(TOWER_PLACEMENT_BUTTON);
         button.setPrefWidth(80);
         button.setPrefHeight(40);
+        
+        position(button, x, y);
     }
 
-    public static void setWaveText(Text text){
+    public static void setWaveText(Text text, int x, int y){
         text.setStyle(WAVE_TEXT);
+        position(text,x,y);
     }
 
-    public static void setMoneyText(Text text){
+    public static void setMoneyText(Text text, int x, int y){
         text.setStyle(MONEY_TEXT);
+        position(text,x,y);
     }
 
-    public static void setBaseHealthText(Text text){
+    public static void setBaseHealthText(Text text, int x, int y){
         text.setStyle(BASE_HEALTH_TEXT);
+        position(text,x,y);
     }
+
+    public static void position(Text text, int x, int y){
+        text.setX(x);
+        text.setY(y);
+    }
+
+    public static void position(Button b, int x, int y){
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+    }
+
     
 
 }

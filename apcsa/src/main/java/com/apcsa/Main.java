@@ -21,6 +21,9 @@ import javafx.scene.image.*;
 
 public class Main extends Application {
 
+    public static Canvas canvas;
+    public static GraphicsContext gc;
+
     public static Pane pane;
 
     public static Text waveText;
@@ -38,33 +41,66 @@ public class Main extends Application {
     public static Circle rangePreview;
     public static Circle rangePreviewPlaced;
     public static ImageView towerPreview;
-@Override
-public void start(Stage stage) {
-    // start menu
-    Pane startPane = new Pane();
 
-    Text title = new Text("tittle text here ");
-    title.setX(320);
-    title.setY(240);
+    public static Button startButton;
 
-    Button startButton = new Button("START");
+    @Override
+    public void start(Stage stage) {
+        setUpHomeScreen(stage);
+        startButton.setOnAction(e -> { runGame(stage); });
+    }
 
-    startButton.setLayoutX(350);
-    startButton.setLayoutY(400);
-    startButton.setPrefSize(100, 40);
 
-    startButton.setOnAction(e -> {
-        runGame(stage);
-    });
-
-    startPane.getChildren().addAll(title, startButton);
-    Scene startScene = new Scene(startPane, 800, 600);
-
-    stage.setScene(startScene);
-    stage.setTitle("faccultyfaceoff");
-    stage.show();
-}
     public void runGame(Stage stage) {
+
+        setUpCanvasAndScene(stage);
+    
+        setUpPreviews();
+        setUpGrid();
+        setUpText();
+        setUpButtons();
+
+
+        GameWorld.startGameLoop();
+        WaveManager.runIt();
+        InputManager.setUpKeybindManager();
+
+    }
+
+
+    public void setUpCanvasAndScene(Stage stage){
+        canvas = new Canvas(800, 600);
+        gc = canvas.getGraphicsContext2D();
+        pane = new Pane(canvas);
+
+        scene = new Scene(pane, 800, 600);
+        stage.setScene(scene);
+        stage.setTitle("Teacher Defense");
+        stage.show();
+    }
+
+    public void setUpHomeScreen(Stage stage){
+        Pane startPane = new Pane();
+
+        Text title = new Text("tittle text here ");
+        title.setX(320);
+        title.setY(240);
+
+        startButton = new Button("START");
+
+        startButton.setLayoutX(350);
+        startButton.setLayoutY(400);
+        startButton.setPrefSize(100, 40);
+
+        startPane.getChildren().addAll(title, startButton);
+        Scene startScene = new Scene(startPane, 800, 600);
+
+        stage.setScene(startScene);
+        stage.setTitle("faccultyfaceoff");
+        stage.show();
+    }
+
+    public void setUpPreviews(){
         rangePreview = new Circle();
         rangePreview.setFill(Color.rgb(128, 128, 128, 0.25));
         rangePreview.setStroke(Color.GRAY);
@@ -82,9 +118,10 @@ public void start(Stage stage) {
         towerPreview.setFitWidth(64);
         towerPreview.setFitHeight(64);
 
-        Canvas canvas = new Canvas(800, 600);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        
+        pane.getChildren().addAll(rangePreview, towerPreview, rangePreviewPlaced);
+    }
+
+    public void setUpGrid(){
         gc.setStroke(Color.LIGHTGRAY);
         for (int x = 0; x <= 800; x += 64) {
             gc.strokeLine(x, 0, x, 600);
@@ -94,72 +131,42 @@ public void start(Stage stage) {
         }
 
         GameWorld.paintPathAndOccupy(gc);
+    }
 
-        pane = new Pane(canvas);
-
-        timeText = new Text("0:15");
-        timeText.setX(392);
-        timeText.setY(100);
-
+    public void setUpText(){
         waveText = new Text("Wave: 0");
-        waveText.setX(380);
-        waveText.setY(70);
-
+        timeText = new Text("0:15");
         moneyText = new Text("Money: 100");
-        moneyText.setX(650);
-        moneyText.setY(50);
-
         baseHealthText = new Text(Health.baseHealth+"/"+Health.maxBaseHealth);
-        baseHealthText.setX(357);
-        baseHealthText.setY(40);
+
+        UIStyles.setWaveText(waveText, 380, 70);
+        UIStyles.setWaveText(timeText, 392, 100);
+        UIStyles.setMoneyText(moneyText, 650, 50);
+        UIStyles.setBaseHealthText(baseHealthText, 357, 40);
 
         pane.getChildren().addAll(waveText, timeText, moneyText, baseHealthText);
+    }
 
-        UIStyles.setWaveText(waveText);
-        UIStyles.setWaveText(timeText);
-        UIStyles.setMoneyText(moneyText);
-        UIStyles.setBaseHealthText(baseHealthText);
-
+    public void setUpButtons(){
         signoreButton = new Button("Signore");
-        signoreButton.setLayoutX(350);
-        signoreButton.setLayoutY(500);
-
         farmButton = new Button("Farm");
-        farmButton.setLayoutX(500);
-        farmButton.setLayoutY(500);
-
         skipButton = new Button("Skip");
-        skipButton.setLayoutX(200);
-        skipButton.setLayoutY(500);
-
         upgradeButton = new Button("Upgrade");
-        upgradeButton.setLayoutX(500);
-        upgradeButton.setLayoutY(200);
         upgradeButton.setVisible(false);
 
-        UIStyles.styleTowerPlacementButton(signoreButton);
-        UIStyles.styleTowerPlacementButton(farmButton);
-        UIStyles.styleTowerPlacementButton(skipButton);
-        UIStyles.styleTowerPlacementButton(upgradeButton);
+        UIStyles.styleTowerPlacementButton(signoreButton, 350, 500);
+        UIStyles.styleTowerPlacementButton(farmButton, 500, 500);
+        UIStyles.styleTowerPlacementButton(skipButton, 200, 500);
+        UIStyles.styleTowerPlacementButton(upgradeButton, 500, 200);
 
         pane.getChildren().addAll(signoreButton, skipButton, farmButton, upgradeButton);
 
-        scene = new Scene(pane, 800, 600);
-        stage.setScene(scene);
-        stage.setTitle("Teacher Defense");
-        stage.show();
-
-        pane.getChildren().addAll(rangePreview, towerPreview, rangePreviewPlaced);
-
-        GameWorld.startGameLoop();
-        WaveManager.runIt();
-        
         InputManager.setUpImageClick(signoreButton);
         InputManager.setUpImageClick(farmButton);
-        InputManager.setUpKeybindManager();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }
