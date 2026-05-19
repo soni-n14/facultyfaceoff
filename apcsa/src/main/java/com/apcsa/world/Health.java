@@ -16,9 +16,14 @@ public class Health {
         if (baseHealth <= 0){
             baseHealth = 0;
             Main.baseHealthText.setText(baseHealth+"/"+maxBaseHealth);
+            gameOver();
             return;
         }
         Main.baseHealthText.setText(baseHealth+"/"+maxBaseHealth);
+    }
+
+    public static void gameOver(){
+        System.out.println("Game Over");
     }
 
 }

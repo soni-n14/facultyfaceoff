@@ -75,7 +75,7 @@ public class Main extends Application {
 
         scene = new Scene(pane, 800, 600);
         stage.setScene(scene);
-        stage.setTitle("Teacher Defense");
+        stage.setTitle("Faculty Face Off");
         stage.show();
     }
 
