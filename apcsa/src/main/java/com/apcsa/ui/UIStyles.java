@@ -47,37 +47,73 @@ public class UIStyles {
         "-fx-stroke-width: 1.3;";
     
 
+    /**
+     * sets style and position and size of towerPlacementButton
+     * @param button
+     * @param x
+     * @param y
+     */
     public static void styleTowerPlacementButton(Button button, int x, int y) {
         button.setStyle(TOWER_PLACEMENT_BUTTON);
         button.setPrefWidth(80);
         button.setPrefHeight(40);
-        
+
         position(button, x, y);
     }
 
+    /**
+     * Sets style and position of waveText
+     * @param text
+     * @param x
+     * @param y
+     */
     public static void setWaveText(Text text, int x, int y){
         text.setStyle(WAVE_TEXT);
         position(text,x,y);
     }
 
+    /**
+     * Sets style and position of moneyText
+     * @param text
+     * @param x
+     * @param y
+     */
     public static void setMoneyText(Text text, int x, int y){
         text.setStyle(MONEY_TEXT);
         position(text,x,y);
     }
 
+    /**
+     * Sets style and position of baseHealthText
+     * @param text
+     * @param x
+     * @param y
+     */
     public static void setBaseHealthText(Text text, int x, int y){
         text.setStyle(BASE_HEALTH_TEXT);
         position(text,x,y);
     }
 
+    /**
+     * Sets position of text
+     * @param text
+     * @param x
+     * @param y
+     */
     public static void position(Text text, int x, int y){
         text.setX(x);
         text.setY(y);
     }
 
-    public static void position(Button b, int x, int y){
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+    /**
+     * Sets position of button
+     * @param button
+     * @param x
+     * @param y
+     */
+    public static void position(Button button, int x, int y){
+        button.setLayoutX(x);
+        button.setLayoutY(y);
     }
 
     

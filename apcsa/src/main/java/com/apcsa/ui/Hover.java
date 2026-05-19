@@ -7,6 +7,13 @@ import javafx.scene.text.Text;
 
 public class Hover {
 
+    /**
+     * Adds hover behavior to the imageView
+     * When mouse enters, shows HP of enemy above image
+     * When enemy moves, udpate is called, which updates position and text of the text. It also updates based on enemy health
+     * @param imageView
+     * @param enemy
+     */
     public static void checkMoved(ImageView imageView, Enemy enemy) {
 
         Text hpText = new Text();
@@ -35,6 +42,12 @@ public class Hover {
         });
     }
 
+    /**
+     * Updates position and text of the text
+     * @param hpText
+     * @param imageView
+     * @param enemy
+     */
     private static void update(Text hpText, ImageView imageView, Enemy enemy) {
         hpText.setX(imageView.getX() + 15);
         hpText.setY(imageView.getY() - 5);

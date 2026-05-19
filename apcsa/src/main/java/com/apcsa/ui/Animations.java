@@ -22,6 +22,11 @@ public class Animations {
 
     private static HashMap<String, Image> imageCache = new HashMap<>();
 
+    /**
+     * gets the image from from the imageCache, if the hashmap doesn't have the image, it adds the image to the hashmap
+     * @param path
+     * @return
+     */
     public static Image getImage(String path) {
         if (!imageCache.containsKey(path)) {
             Image img = new Image(Animations.class.getResourceAsStream(path));
@@ -31,6 +36,12 @@ public class Animations {
         return imageCache.get(path);
     }
 
+    /**
+     * 
+     * @param tower
+     * @return String array, 0th index is the tower name, 1st index is animation state+png, 2nd index is the frame in 
+     * the spritesheet to be on
+     */
     public static String[] getTowerFrame(Tower tower) {
         String towerName = tower.getName();
         int frame = tower.getAnimationFrame();
@@ -45,6 +56,10 @@ public class Animations {
         return ret;
     }
 
+    /**
+     * Gets the viewport animation frame for the tower, and sets rotation
+     * @param tower
+     */
     public static void updateTower(Tower tower) {
         String[] data = getTowerFrame(tower);
 
@@ -83,6 +98,10 @@ public class Animations {
         });
     }
 
+    /**
+     * Updates the image to show on where the enmy is, for the unaminated enemies
+     * @param enemy
+     */
     public static void updateUnanimatedEnemy(Enemy enemy) {
         String path = "/fxml/sprites/" + enemy.getClass().getSimpleName() + "/MOVING.png";
 
@@ -110,6 +129,9 @@ public class Animations {
         });
     }
 
+    /**
+     * Removes image of enemy
+     */
     public static void removeEnemy(Enemy enemy) {
         Platform.runLater(() -> {
             ImageView view = enemyViews.remove(enemy);
@@ -120,6 +142,10 @@ public class Animations {
         });
     }
 
+    /**
+     * Removes image of tower
+     * @param tower
+     */
     public static void removeTower(Tower tower) {
         Platform.runLater(() -> {
             ImageView view = towerViews.remove(tower);
