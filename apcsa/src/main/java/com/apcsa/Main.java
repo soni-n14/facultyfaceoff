@@ -1,6 +1,5 @@
 package com.apcsa;
 
-import com.apcsa.combat.towers.Signore;
 import com.apcsa.ui.InputManager;
 import com.apcsa.ui.UIStyles;
 import com.apcsa.waves.WaveManager;
@@ -9,7 +8,6 @@ import com.apcsa.world.Health;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;

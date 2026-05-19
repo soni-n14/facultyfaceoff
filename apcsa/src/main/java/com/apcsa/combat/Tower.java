@@ -2,7 +2,6 @@ package com.apcsa.combat;
 
 import java.util.List;
 
-import com.apcsa.ui.Animations;
 import com.apcsa.world.GameWorld;
 import com.apcsa.world.Money;
 
@@ -49,6 +48,7 @@ public abstract class Tower {
 
     //constructor
     public Tower(double tX, double tY){
+        
         level = 1;
         tileX = tX;
         tileY = tY;
@@ -57,8 +57,6 @@ public abstract class Tower {
         removed = false;
         GameWorld.towers.add(this);
 
-        String path = "/fxml/sprites/" + this.getClass().getSimpleName() + "/BULLET.png";
-        //bullet = new Image(Animations.class.getResourceAsStream(path));
     }
 
     //non-abstract methods

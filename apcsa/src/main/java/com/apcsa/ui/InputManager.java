@@ -1,13 +1,16 @@
 package com.apcsa.ui;
 
+import com.apcsa.combat.towers.Farm;
 import com.apcsa.combat.towers.Signore;
 import com.apcsa.world.GameWorld;
 import com.apcsa.world.Money;
+
+import java.util.HashMap;
+
 import com.apcsa.Main;
 import com.apcsa.combat.Tower;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
@@ -16,28 +19,31 @@ public class InputManager {
 
     private static boolean isInPlaceMode = false;
     private static boolean isInTowerSelectedMode = false;
+    private static HashMap<String, Class> towerClasses = new HashMap<>();
+    private static HashMap<String, Integer> towerClassesRange = new HashMap<>();
+    private static HashMap<String, Integer> towerClassesBaseCost = new HashMap<>();
 
-    private static Class<? extends Tower> clasz;
+    private static Class clasz;
+
+    static {
+
+        towerClasses.put("Signore", Signore.class);
+        towerClassesRange.put("Signore", Signore.STARTER_RANGE);
+        towerClassesBaseCost.put("Signore",Signore.BASE_COST);
+
+        towerClasses.put("Farm", Farm.class);
+        towerClassesRange.put("Farm", Farm.STARTER_RANGE);
+        towerClassesBaseCost.put("Farm",Farm.BASE_COST);
+    }
 
     public static void imgNumberClicked(String name){
-        try { 
-            //TODO, Neelehs will do : make a hashmap with name of class assigned to the actual class, then get it using the hashmap . 
-            clasz = (Class<? extends Tower>) Class.forName("com.apcsa.combat.towers." + name);
-        } 
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         isInTowerSelectedMode = false;
         Main.rangePreviewPlaced.setVisible(isInPlaceMode);
+        
 
-        double rad = 0;
-
-        try {
-            rad = clasz.getField("STARTER_RANGE").getInt(null) * 64.0;
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        clasz = towerClasses.get(name);
+        double rad =  towerClassesRange.get(name) * 64.0;
 
         Main.rangePreview.setRadius(rad);
         
@@ -50,35 +56,30 @@ public class InputManager {
 
         if(isInPlaceMode == false){
             isInPlaceMode = true;
-            setupMouseClick(clasz);
+            setupMouseClick(clasz, name);
             return;
         }
 
         isInPlaceMode = false;
     }
 
-    public static void setupMouseClick(Class<? extends Tower> clasz) {
+    public static void setupMouseClick(Class<? extends Tower> clasz, String name) {
 
         Main.scene.setOnMouseClicked(e -> {
             double tX = ((int) e.getX() / 64) + 0.5;
             double tY = ((int) e.getY() / 64) + 0.5;
             Point2D spot = new Point2D(tX, tY);
 
-            int cost = 0;
-            try {
-                cost = clasz.getField("BASE_COST").getInt(null);
-            } catch (NoSuchFieldException | IllegalAccessException ex) {
-                ex.printStackTrace();
-            }
+            int cost = towerClassesBaseCost.get(name);
 
             if(isInPlaceMode && !GameWorld.occupied.contains(spot) && Money.checkMoney(cost)){
-                try {
-                    clasz.getConstructor(double.class, double.class).newInstance(tX, tY);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+
+                try { clasz.getConstructor(double.class, double.class).newInstance(tX, tY); }
+                catch (Exception ex) { ex.printStackTrace(); }
+                
                 GameWorld.occupied.add(spot);
                 isInPlaceMode = false;
+
             }
 
             else if(!isInPlaceMode){
