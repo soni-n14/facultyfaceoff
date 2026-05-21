@@ -16,6 +16,9 @@ import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 
+/**
+ * Handles all player input including tower-placement mouse clicks, tower selection, and keyboard shortcuts.
+ */
 public class InputManager {
 
     private static boolean isInPlaceMode = false;

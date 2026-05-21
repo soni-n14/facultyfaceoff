@@ -2,6 +2,9 @@ package com.apcsa.combat.enemies;
 
 import com.apcsa.combat.Enemy;
 
+/**
+ * A very fast, fragile enemy that awards 10 gold on death.
+ */
 public class ScoutFulk extends Enemy {
 
     public static final int HP = 4;

@@ -3,6 +3,9 @@ package com.apcsa.combat;
 import com.apcsa.world.GameWorld;
 import javafx.geometry.Point2D;
 
+/**
+ * Abstract base class for all enemy types that move along the path and can take damage.
+ */
 public abstract class Enemy {
 
     protected int hp;

@@ -3,6 +3,9 @@ package com.apcsa.combat.enemies;
 import com.apcsa.combat.Enemy;
 
 
+/**
+ * A slow, low-HP introductory enemy that awards 10 gold on death.
+ */
 public class OtherStateFulk extends Enemy{
 
     public static final int HP = 6;

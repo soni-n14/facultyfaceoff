@@ -1,6 +1,9 @@
 package com.apcsa.combat.towers;
 import com.apcsa.combat.Tower;
 
+/**
+ * A basic attack tower that shoots at the farthest enemy within range.
+ */
 public class Signore extends Tower {
 
     public static final int BASE_COST = 50;
@@ -16,6 +19,11 @@ public class Signore extends Tower {
     }
 
 
+    /**
+     * Updates damage, range, cooldown, and upgrade cost based on the current upgrade level.
+     *
+     * @param level the new level to apply stats for
+     */
     @Override
     public void updateStats(int level){
         switch(level){

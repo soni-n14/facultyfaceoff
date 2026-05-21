@@ -5,6 +5,9 @@ import com.apcsa.combat.Enemy;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * Attaches hover-based HP tooltip behaviour to enemy ImageViews.
+ */
 public class Hover {
 
     /**

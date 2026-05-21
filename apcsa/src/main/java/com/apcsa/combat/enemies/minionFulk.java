@@ -3,6 +3,9 @@ package com.apcsa.combat.enemies;
 import com.apcsa.combat.Enemy;
 
 
+/**
+ * A fast, low-HP basic enemy that awards 10 gold on death.
+ */
 public class MinionFulk extends Enemy{
 
     public static final int HP = 5;

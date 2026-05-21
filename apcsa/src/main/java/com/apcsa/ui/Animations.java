@@ -11,6 +11,9 @@ import com.apcsa.Main;
 import com.apcsa.combat.Enemy;
 import com.apcsa.combat.Tower;
 
+/**
+ * Manages sprite rendering and animation for all towers and enemies on the JavaFX pane.
+ */
 public class Animations {
 
     public static final int FRAME_WIDTH = 512;
