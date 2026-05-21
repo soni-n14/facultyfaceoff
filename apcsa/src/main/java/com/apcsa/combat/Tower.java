@@ -1,11 +1,15 @@
 package com.apcsa.combat;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.apcsa.Main;
 import com.apcsa.world.GameWorld;
 import com.apcsa.world.Money;
 
-import javafx.scene.image.*;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Abstract base class for all tower types that target, face, and attack enemies within range.
@@ -48,6 +52,8 @@ public abstract class Tower {
 
     protected double bulletSpeed;
     protected Image bullet;
+
+    private static HashMap<String, Image> imageCacheHit = new HashMap<>();
 
     //constructor
     public Tower(double tX, double tY){
@@ -210,8 +216,59 @@ public abstract class Tower {
      */
     public void attack(Enemy enemy) {
         if (enemy != null && !enemy.isDead()) {
+            showHitSpot(enemy);
             enemy.takeDamage(damage);
         }
+    }
+
+    public void showHitSpot(Enemy enemy) { 
+        String path = "/fxml/sprites/" + this.getClass().getSimpleName() + "/HITSPOT.png";
+        Image img = getImage(path);
+
+        if (img == null) return;
+
+        Platform.runLater(() -> {
+            ImageView view = new ImageView(img);
+
+            view.setFitWidth(32);
+            view.setFitHeight(32);
+
+            view.setX(enemy.getTileX() * 64 - 16);
+            view.setY(enemy.getTileY() * 64 - 16);
+
+            view.setMouseTransparent(true);
+
+            Main.pane.getChildren().add(view);
+
+            Thread removeThread = new Thread(() -> {
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+
+                Platform.runLater(() -> {
+                    Main.pane.getChildren().remove(view);
+                });
+            });
+
+            removeThread.setDaemon(true);
+            removeThread.start();
+        });
+    }
+
+    /**
+     * gets the image from from the imageCache, if the hashmap doesn't have the image, it adds the image to the hashmap
+     * @param path
+     * @return
+     */
+    public static Image getImage(String path) {
+        if (!imageCacheHit.containsKey(path)) {
+            Image img = new Image(Tower.class.getResourceAsStream(path));
+            imageCacheHit.put(path, img);
+        }
+
+        return imageCacheHit.get(path);
     }
 
     //getters
