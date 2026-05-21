@@ -12,6 +12,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Holds all live game state and runs the main game loop that updates enemies, towers, and animations each frame.
+ */
 public class GameWorld {
 
     public static CopyOnWriteArrayList<Enemy> enemies = new CopyOnWriteArrayList<>();
@@ -33,6 +36,9 @@ public class GameWorld {
     };
 
 
+    /**
+     * Spawns a daemon thread that runs the game loop continuously until the application exits.
+     */
     public static void startGameLoop() {
         Thread gameThread = new Thread(() -> runGameLoop());
         gameThread.setDaemon(true);
@@ -94,6 +100,11 @@ public class GameWorld {
         }
     }
 
+    /**
+     * Draws the path tiles on the canvas and marks each tile as occupied so towers cannot be placed on them.
+     *
+     * @param gc the GraphicsContext used to fill the path tiles
+     */
     public static void paintPathAndOccupy(GraphicsContext gc) {
         gc.setFill(Color.LIGHTGREEN);
 

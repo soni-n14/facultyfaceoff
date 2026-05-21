@@ -5,6 +5,9 @@ import javafx.scene.paint.Color;
 
 import javafx.scene.text.*;
 
+/**
+ * Provides shared style constants and helper methods for positioning and styling all HUD elements.
+ */
 public class UIStyles {
 
     public static final Color GRID_COLOR = Color.LIGHTGRAY;

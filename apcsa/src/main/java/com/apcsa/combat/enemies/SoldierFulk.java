@@ -2,6 +2,9 @@ package com.apcsa.combat.enemies;
 
 import com.apcsa.combat.Enemy;
 
+/**
+ * A moderately fast, medium-HP enemy that awards 15 gold on death.
+ */
 public class SoldierFulk extends Enemy {
 
     public static final int HP = 12;

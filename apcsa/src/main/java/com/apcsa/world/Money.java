@@ -2,6 +2,9 @@ package com.apcsa.world;
 
 import com.apcsa.Main;
 
+/**
+ * Manages the player's gold balance and keeps the HUD money display in sync.
+ */
 public class Money {
     private static int money = 100;
 

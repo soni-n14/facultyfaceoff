@@ -2,6 +2,9 @@ package com.apcsa.world;
 
 import com.apcsa.Main;
 
+/**
+ * Tracks the player's base health and triggers the game-over state when it reaches zero.
+ */
 public class Health {
     
     public static int maxBaseHealth = 100;
@@ -22,6 +25,9 @@ public class Health {
         Main.baseHealthText.setText(baseHealth+"/"+maxBaseHealth);
     }
 
+    /**
+     * Handles the game-over condition when base health drops to zero.
+     */
     public static void gameOver(){
         System.out.println("Game Over");
     }

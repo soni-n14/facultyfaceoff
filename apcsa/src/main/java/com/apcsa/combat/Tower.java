@@ -7,6 +7,9 @@ import com.apcsa.world.Money;
 
 import javafx.scene.image.*;
 
+/**
+ * Abstract base class for all tower types that target, face, and attack enemies within range.
+ */
 public abstract class Tower {
 
     //enum
@@ -80,6 +83,11 @@ public abstract class Tower {
         removed = true;
     }
 
+    /**
+     * Advances the sprite animation frame based on elapsed time.
+     *
+     * @param deltaTime seconds elapsed since the last update
+     */
     public void updateAnimation(double deltaTime){
         animationFrameTimer += deltaTime;
         while (animationFrameTimer >= animationFrameDuration){
@@ -90,7 +98,7 @@ public abstract class Tower {
 
     /**
      * Checks to see if player can upgrade, if they can, it increases their level, calls function to update stats
-     * @param money
+     * @return true if the upgrade was successful, false otherwise
      */
     public boolean upgrade(){
         if (canUpgrade(Money.getMoney())){

@@ -5,6 +5,9 @@ import com.apcsa.combat.Enemy;
 import com.apcsa.combat.Tower;
 import com.apcsa.world.Money;
 
+/**
+ * A non-combat tower that generates gold for the player at the end of each wave.
+ */
 public class Farm extends Tower {
     
     public static final int BASE_COST = 300;
@@ -26,10 +29,18 @@ public class Farm extends Tower {
         updateAnimation(deltaTime);
     }
 
+    /**
+     * Adds this farm's per-wave cash income to the player's money total.
+     */
     public void doYoThing(){
         Money.addMoney(cashPerWave);
     }
 
+    /**
+     * Updates cash income and other stats based on the current upgrade level.
+     *
+     * @param level the new level to apply stats for
+     */
     @Override
     public void updateStats(int level){
         switch(level){

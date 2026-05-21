@@ -19,6 +19,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 
 
+/**
+ * Main entry point and root JavaFX Application that initialises the home screen and launches the game.
+ */
 public class Main extends Application {
 
     public static Canvas canvas;
@@ -52,6 +55,11 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Initialises all game systems and starts the game loop after the start button is pressed.
+     *
+     * @param stage the primary JavaFX stage used to display the game scene
+     */
     public void runGame(Stage stage) {
 
         setUpCanvasAndScene(stage);
@@ -69,6 +77,11 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Creates the 800x600 canvas and scene and attaches them to the stage.
+     *
+     * @param stage the stage to configure with the game scene
+     */
     public void setUpCanvasAndScene(Stage stage){
         canvas = new Canvas(800, 600);
         gc = canvas.getGraphicsContext2D();
@@ -80,6 +93,11 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Builds and displays the home screen with a title label and start button.
+     *
+     * @param stage the stage to display the home screen on
+     */
     public void setUpHomeScreen(Stage stage){
         Pane startPane = new Pane();
 
@@ -101,6 +119,9 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Creates and adds the range-preview circles and tower image preview overlay to the pane.
+     */
     public void setUpPreviews(){
         rangePreview = new Circle();
         rangePreview.setFill(Color.rgb(128, 128, 128, 0.25));
@@ -122,6 +143,9 @@ public class Main extends Application {
         pane.getChildren().addAll(rangePreview, towerPreview, rangePreviewPlaced);
     }
 
+    /**
+     * Draws the tile grid lines and colours the enemy path tiles on the canvas.
+     */
     public void setUpGrid(){
         gc.setStroke(Color.LIGHTGRAY);
         for (int x = 0; x <= 800; x += 64) {
@@ -134,6 +158,9 @@ public class Main extends Application {
         GameWorld.paintPathAndOccupy(gc);
     }
 
+    /**
+     * Creates and styles the HUD text nodes for wave, timer, money, and base health, then adds them to the pane.
+     */
     public void setUpText(){
         waveText = new Text("Wave: 0");
         timeText = new Text("0:15");
@@ -148,6 +175,9 @@ public class Main extends Application {
         pane.getChildren().addAll(waveText, timeText, moneyText, baseHealthText);
     }
 
+    /**
+     * Creates, styles, and wires click handlers for all tower-placement and upgrade buttons.
+     */
     public void setUpButtons(){
         signoreButton = new Button("Signore");
         farmButton = new Button("Farm");

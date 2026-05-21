@@ -2,6 +2,9 @@ package com.apcsa.combat.enemies;
 
 import com.apcsa.combat.Enemy;
 
+/**
+ * A high-HP, slow enemy that awards 50 gold on death.
+ */
 public class BruteFulk extends Enemy {
 
     public static final int HP = 80;

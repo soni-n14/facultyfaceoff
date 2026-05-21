@@ -9,6 +9,9 @@ import com.apcsa.combat.towers.Farm;
 
 import javafx.application.Platform;
 
+/**
+ * Controls the wave lifecycle: spawning enemies per wave, counting down timers, and triggering the inter-wave cooldown.
+ */
 public class WaveManager {
 
     private static int wave = 0;
@@ -85,6 +88,9 @@ public class WaveManager {
         waveThread.start();
     }
 
+    /**
+     * Starts the countdown timer thread, updates the wave label, and spawns the enemy sequence for the current wave number.
+     */
     public static void actualWaveDataRunner(){
 
         Thread timerThread = new Thread(() -> timerTickDown());
@@ -482,6 +488,11 @@ public class WaveManager {
 
     }
 
+    /**
+     * Blocks the current thread for the specified number of seconds to space out enemy spawns.
+     *
+     * @param time the duration to sleep in seconds
+     */
     public static void pause(double time){
         try {
             Thread.sleep((int)(time*1000));
@@ -490,6 +501,9 @@ public class WaveManager {
         }
     }
 
+    /**
+     * Called by the game loop when the enemy list empties mid-wave; awards bonus gold and starts the cooldown early.
+     */
     public static void enemiesIsEmpty() {
         if (allEnemiesOut == true&& !cooldownRunning && !waveCompleted) {
             allEnemiesOut = false;
