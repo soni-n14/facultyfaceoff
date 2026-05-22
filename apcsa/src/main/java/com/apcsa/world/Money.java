@@ -25,6 +25,11 @@ public class Money {
         Main.moneyText.setText("Money: "+money); 
     }
 
+    public static void resetMoney() {
+        money = 100;
+        Main.moneyText.setText("Money: "+money); 
+    }
+
     /**
      * Checks if money is greater than or equal to int parameter monToCheck, 
      * if it is, subtracts the money and returns true. Otherwise returns false

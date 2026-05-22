@@ -26,10 +26,10 @@ public class Health {
     }
 
     /**
-     * Handles the game-over condition when base health drops to zero.
+     * Game over when base health drops to zero.
      */
     public static void gameOver(){
-        System.out.println("Game Over");
+        Main.showGameOver();
     }
 
 }

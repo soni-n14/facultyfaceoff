@@ -218,6 +218,36 @@ public class Main extends Application {
         InputManager.setUpImageClick(kirshButton);
     }
 
+    public static void showGameOver() {
+        javafx.application.Platform.runLater(() -> {
+            Pane gameOverPane = new Pane();
+            gameOverPane.setStyle("-fx-background-color: black;");
+
+            Text overText = new Text("GAME OVER");
+            overText.setX(250);
+            overText.setY(250);
+            overText.setStyle("-fx-font-size: 60px; -fx-fill: red; -fx-font-family: 'Impact';");
+
+            Button restartBtn = new Button("RESTART");
+            restartBtn.setLayoutX(350);
+            restartBtn.setLayoutY(350);
+            restartBtn.setPrefSize(100, 50);
+            restartBtn.setOnAction(e -> {
+                Health.baseHealth = 100;
+                com.apcsa.world.Money.resetMoney();
+                com.apcsa.waves.WaveManager.allEnemiesOut = true;
+                GameWorld.enemies.clear();
+                GameWorld.towers.clear();
+                GameWorld.occupied.clear();
+                Main m = new Main();
+                m.start((Stage) scene.getWindow());
+            });
+
+            gameOverPane.getChildren().addAll(overText, restartBtn);
+            scene.setRoot(gameOverPane);
+        });
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
