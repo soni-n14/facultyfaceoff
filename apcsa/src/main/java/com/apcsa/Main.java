@@ -17,10 +17,11 @@ import javafx.scene.text.Text;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
-
+import javafx.animation.AnimationTimer;
 
 /**
- * Main entry point and root JavaFX Application that initialises the home screen and launches the game.
+ * Main entry point and root JavaFX Application that initialises the home screen
+ * and launches the game.
  */
 public class Main extends Application {
 
@@ -51,24 +52,25 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         setUpHomeScreen(stage);
-        startButton.setOnAction(e -> { runGame(stage); });
+        startButton.setOnAction(e -> {
+            runGame(stage);
+        });
     }
 
-
     /**
-     * Initialises all game systems and starts the game loop after the start button is pressed.
+     * Initialises all game systems and starts the game loop after the start button
+     * is pressed.
      *
      * @param stage the primary JavaFX stage used to display the game scene
      */
     public void runGame(Stage stage) {
 
         setUpCanvasAndScene(stage);
-    
+
         setUpPreviews();
         setUpGrid();
         setUpText();
         setUpButtons();
-
 
         GameWorld.startGameLoop();
         WaveManager.runIt();
@@ -76,13 +78,12 @@ public class Main extends Application {
 
     }
 
-
     /**
      * Creates the 800x600 canvas and scene and attaches them to the stage.
      *
      * @param stage the stage to configure with the game scene
      */
-    public void setUpCanvasAndScene(Stage stage){
+    public void setUpCanvasAndScene(Stage stage) {
         canvas = new Canvas(800, 600);
         gc = canvas.getGraphicsContext2D();
         pane = new Pane(canvas);
@@ -93,48 +94,64 @@ public class Main extends Application {
         stage.show();
     }
 
-    /**
-     * Builds and displays the home screen with a title label and start button.
-     *
-     * @param stage the stage to display the home screen on
-     */
-    public void setUpHomeScreen(Stage stage){
+    public void setUpHomeScreen(Stage stage) {
         Pane startPane = new Pane();
+        startPane.setStyle("-fx-background-color: green;");
 
-        Text title = new Text("tittle text here ");
-        title.setX(320);
-        title.setY(240);
+        Text title = new Text("FACULTY FACE OFF");
+        title.setX(170);
+        title.setY(250);
+        //title.setRotate(30);
+        title.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
 
-        startButton = new Button("START");
-
+        startButton = new Button("PLAY");
         startButton.setLayoutX(350);
-        startButton.setLayoutY(400);
-        startButton.setPrefSize(100, 40);
+        startButton.setLayoutY(450);
+        startButton.setPrefSize(100, 50);
+        startButton.setStyle("-fx-font-size: 20px; -fx-background-color: black; -fx-text-fill: white" );
+
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+            double phize = 1.0;
+            int direktion = 1;
+
+            @Override
+            public void handle(long now) {
+                phize += 0.01 * direktion;
+
+                if (phize > 1.4 || phize < 0.6) {
+                    direktion = -direktion; 
+                }
+
+                title.setScaleX(phize);
+                title.setScaleY(phize);
+            }
+        };
+        timer.start();
 
         startPane.getChildren().addAll(title, startButton);
         Scene startScene = new Scene(startPane, 800, 600);
 
         stage.setScene(startScene);
-        stage.setTitle("faccultyfaceoff");
+        stage.setTitle("facultyfaceoff");
         stage.show();
     }
 
     /**
-     * Creates and adds the range-preview circles and tower image preview overlay to the pane.
+     * Creates and adds the range-preview circles and tower image preview overlay to
+     * the pane.
      */
-    public void setUpPreviews(){
+    public void setUpPreviews() {
         rangePreview = new Circle();
         rangePreview.setFill(Color.rgb(128, 128, 128, 0.25));
         rangePreview.setStroke(Color.GRAY);
         rangePreview.setVisible(false);
         rangePreview.setMouseTransparent(true);
-
         rangePreviewPlaced = new Circle();
         rangePreviewPlaced.setFill(Color.rgb(128, 128, 128, 0.25));
         rangePreviewPlaced.setStroke(Color.GRAY);
         rangePreviewPlaced.setVisible(false);
         rangePreviewPlaced.setMouseTransparent(true);
-        
+
         towerPreview = new ImageView();
         towerPreview.setVisible(false);
         towerPreview.setFitWidth(64);
@@ -146,7 +163,7 @@ public class Main extends Application {
     /**
      * Draws the tile grid lines and colours the enemy path tiles on the canvas.
      */
-    public void setUpGrid(){
+    public void setUpGrid() {
         gc.setStroke(Color.LIGHTGRAY);
         for (int x = 0; x <= 800; x += 64) {
             gc.strokeLine(x, 0, x, 600);
@@ -159,13 +176,14 @@ public class Main extends Application {
     }
 
     /**
-     * Creates and styles the HUD text nodes for wave, timer, money, and base health, then adds them to the pane.
+     * Creates and styles the HUD text nodes for wave, timer, money, and base
+     * health, then adds them to the pane.
      */
-    public void setUpText(){
+    public void setUpText() {
         waveText = new Text("Wave: 0");
         timeText = new Text("0:15");
         moneyText = new Text("Money: 100");
-        baseHealthText = new Text(Health.baseHealth+"/"+Health.maxBaseHealth);
+        baseHealthText = new Text(Health.baseHealth + "/" + Health.maxBaseHealth);
 
         UIStyles.setWaveText(waveText, 380, 70);
         UIStyles.setWaveText(timeText, 392, 100);
@@ -176,9 +194,10 @@ public class Main extends Application {
     }
 
     /**
-     * Creates, styles, and wires click handlers for all tower-placement and upgrade buttons.
+     * Creates, styles, and wires click handlers for all tower-placement and upgrade
+     * buttons.
      */
-    public void setUpButtons(){
+    public void setUpButtons() {
         signoreButton = new Button("Signore");
         farmButton = new Button("Farm");
         kirshButton = new Button("Kirsh");
