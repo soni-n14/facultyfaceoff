@@ -73,6 +73,15 @@ public class WaveManager {
         if (running) nextWave();
     }
 
+    public static void skip() {
+        if (cooldownRunning || !waveCompleted) {
+            System.out.println("skipping the wave now...");
+            waveCompleted = true;
+            cooldownRunning = false;
+            // dont need to add money here if we want but user said cost 500
+        }
+    }
+
     private static void nextWave(){
         wave++;
         waveCompleted = false;
