@@ -21,6 +21,12 @@ public class GameWorld {
     public static CopyOnWriteArrayList<Tower> towers = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Point2D> occupied = new CopyOnWriteArrayList<>();
 
+    public static boolean running = true;
+
+    public static void stopGameLoop() {
+        running = false;
+    }
+
     public static Point2D[] pathPoints = {
         new Point2D(0.5, 1.5), 
         //pathIndex 1
@@ -49,7 +55,7 @@ public class GameWorld {
 
         long lastTime = System.nanoTime();
 
-        while (true) {
+        while (running) {
 
             long now = System.nanoTime();
             double deltaTime = (now - lastTime) / 1_000_000_000.0;

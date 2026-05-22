@@ -72,6 +72,7 @@ public class Main extends Application {
         setUpText();
         setUpButtons();
 
+        GameWorld.running = true;
         GameWorld.startGameLoop();
         WaveManager.runIt();
         InputManager.setUpKeybindManager();
@@ -235,6 +236,8 @@ public class Main extends Application {
             restartBtn.setOnAction(e -> {
                 Health.baseHealth = 100;
                 com.apcsa.world.Money.resetMoney();
+                com.apcsa.waves.WaveManager.resetWave();
+                com.apcsa.world.GameWorld.stopGameLoop();
                 com.apcsa.waves.WaveManager.allEnemiesOut = true;
                 GameWorld.enemies.clear();
                 GameWorld.towers.clear();

@@ -21,16 +21,24 @@ public class WaveManager {
     private static double Y = 1.5;
     
     private static boolean cooldownRunning = false;
+    public static boolean running = true;
 
     public static boolean allEnemiesOut = false;
         
+    public static void resetWave() {
+        wave = 0;
+        running = false;
+        waveCompleted = true;
+    }
+        
     public static void runWaves(){
+        running = true;
         nextWave();
     }
 
     private static void timerTickDown(){
         for (int c = 15; c >= 0; c--) {
-            if (waveCompleted) return;
+            if (waveCompleted || !running) return;
 
             int b = c;
             Platform.runLater(() -> {
@@ -40,7 +48,7 @@ public class WaveManager {
             pause(1.0);
         }
 
-        if (waveCompleted || cooldownRunning) return;
+        if (waveCompleted || cooldownRunning || !running) return;
 
         waveCompleted = true;
         cooldownRunning = true;
@@ -51,6 +59,7 @@ public class WaveManager {
 
     private static void waveDoneNowCooldown(){
         for(int c = waveCooldown; c >= 0; c--){
+            if (!running) return;
 
             int b = c; //idk why u gotta do this but i searched and u gotta
 
@@ -61,7 +70,7 @@ public class WaveManager {
             pause(1.0);
 
         }
-        nextWave();
+        if (running) nextWave();
     }
 
     private static void nextWave(){
