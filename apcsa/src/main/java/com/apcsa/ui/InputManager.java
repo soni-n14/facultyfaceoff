@@ -194,6 +194,22 @@ public class InputManager {
             Main.towerPreview.setVisible(false);
             Main.upgradeButton.setVisible(false);
         }
+
+        if (e == KeyCode.M) {
+            System.out.println("testing bug: giving money");
+            Money.addMoney(1000);
+        }
+
+        if (e == KeyCode.H) {
+            System.out.println("testing bug: fixing health");
+            com.apcsa.world.Health.baseHealth = 100;
+            Main.baseHealthText.setText("100/100");
+        }
+
+        if (e == KeyCode.K) {
+            System.out.println("testing bug: killing all");
+            GameWorld.enemies.clear();
+        }
     }
 
 }
