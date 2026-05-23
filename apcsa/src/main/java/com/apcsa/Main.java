@@ -213,9 +213,7 @@ public class Main extends Application {
         UIStyles.styleTowerPlacementButton(upgradeButton, 500, 200);
 
         skipButton.setOnMouseClicked(e -> {
-            if (com.apcsa.world.Money.checkMoney(500)) {
                 com.apcsa.waves.WaveManager.skip();
-            }
         });
 
         pane.getChildren().addAll(signoreButton, kirshButton, skipButton, farmButton, upgradeButton);
