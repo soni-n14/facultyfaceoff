@@ -12,7 +12,8 @@ import com.apcsa.combat.Enemy;
 import com.apcsa.combat.Tower;
 
 /**
- * Manages sprite rendering and animation for all towers and enemies on the JavaFX pane.
+ * Manages sprite rendering and animation for all towers and enemies on the
+ * JavaFX pane.
  */
 public class Animations {
 
@@ -26,7 +27,9 @@ public class Animations {
     private static HashMap<String, Image> imageCache = new HashMap<>();
 
     /**
-     * gets the image from from the imageCache, if the hashmap doesn't have the image, it adds the image to the hashmap
+     * gets the image from from the imageCache, if the hashmap doesn't have the
+     * image, it adds the image to the hashmap
+     * 
      * @param path
      * @return
      */
@@ -42,8 +45,9 @@ public class Animations {
     /**
      * 
      * @param tower
-     * @return String array, 0th index is the tower name, 1st index is animation state+png, 2nd index is the frame in 
-     * the spritesheet to be on
+     * @return String array, 0th index is the tower name, 1st index is animation
+     *         state+png, 2nd index is the frame in
+     *         the spritesheet to be on
      */
     public static String[] getTowerFrame(Tower tower) {
         String towerName = tower.getName();
@@ -61,6 +65,7 @@ public class Animations {
 
     /**
      * Gets the viewport animation frame for the tower, and sets rotation
+     * 
      * @param tower
      */
     public static void updateTower(Tower tower) {
@@ -86,13 +91,11 @@ public class Animations {
             view.setImage(img);
 
             view.setViewport(
-                new Rectangle2D(
-                    Integer.parseInt(data[2]),
-                    0,
-                    FRAME_WIDTH,
-                    FRAME_HEIGHT
-                )
-            );
+                    new Rectangle2D(
+                            Integer.parseInt(data[2]),
+                            0,
+                            FRAME_WIDTH,
+                            FRAME_HEIGHT));
 
             view.setRotate(tower.getRotationDeg());
 
@@ -103,6 +106,7 @@ public class Animations {
 
     /**
      * Updates the image to show on where the enmy is, for the unaminated enemies
+     * 
      * @param enemy
      */
     public static void updateUnanimatedEnemy(Enemy enemy) {
@@ -147,6 +151,7 @@ public class Animations {
 
     /**
      * Removes image of tower
+     * 
      * @param tower
      */
     public static void removeTower(Tower tower) {

@@ -13,7 +13,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- * Holds all live game state and runs the main game loop that updates enemies, towers, and animations each frame.
+ * Holds all live game state and runs the main game loop that updates enemies,
+ * towers, and animations each frame.
  */
 public class GameWorld {
 
@@ -28,22 +29,22 @@ public class GameWorld {
     }
 
     public static Point2D[] pathPoints = {
-        new Point2D(0.5, 1.5), 
-        //pathIndex 1
-        new Point2D(4.5, 1.5), 
-        //2
-        new Point2D(4.5, 4.5),
-        //3
-        new Point2D(8.5, 4.5),
-        //4
-        new Point2D(8.5, 2.5), 
-        //5
-        new Point2D(12.5, 2.5) //when reach here should destroy enemy
+            new Point2D(0.5, 1.5),
+            // pathIndex 1
+            new Point2D(4.5, 1.5),
+            // 2
+            new Point2D(4.5, 4.5),
+            // 3
+            new Point2D(8.5, 4.5),
+            // 4
+            new Point2D(8.5, 2.5),
+            // 5
+            new Point2D(12.5, 2.5) // when reach here should destroy enemy
     };
 
-
     /**
-     * Spawns a daemon thread that runs the game loop continuously until the application exits.
+     * Spawns a daemon thread that runs the game loop continuously until the
+     * application exits.
      */
     public static void startGameLoop() {
         Thread gameThread = new Thread(() -> runGameLoop());
@@ -61,16 +62,15 @@ public class GameWorld {
             double deltaTime = (now - lastTime) / 1_000_000_000.0;
             lastTime = now;
 
-
             for (Enemy enemy : enemies) {
 
                 if (enemy.isDead()) {
                     Money.addMoney(enemy.getReward());
                     Animations.removeEnemy(enemy);
                     enemies.remove(enemy);
-                } 
+                }
 
-                else if(enemy.hasReachedEnd()){
+                else if (enemy.hasReachedEnd()) {
                     Health.subtractHealth(enemy.getHp());
                     Animations.removeEnemy(enemy);
                     enemies.remove(enemy);
@@ -81,8 +81,8 @@ public class GameWorld {
                     Animations.updateUnanimatedEnemy(enemy);
                 }
             }
-            
-            if(enemies.isEmpty())
+
+            if (enemies.isEmpty())
                 WaveManager.enemiesIsEmpty();
 
             for (Tower tower : towers) {
@@ -90,8 +90,7 @@ public class GameWorld {
                 if (tower.isRemoved()) {
                     Animations.removeTower(tower);
                     towers.remove(tower);
-                } 
-                else {
+                } else {
                     tower.update(deltaTime, new ArrayList<>(enemies));
                     Animations.updateTower(tower);
                 }
@@ -99,15 +98,15 @@ public class GameWorld {
 
             try {
                 Thread.sleep(16);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 break;
             }
         }
     }
 
     /**
-     * Draws the path tiles on the canvas and marks each tile as occupied so towers cannot be placed on them.
+     * Draws the path tiles on the canvas and marks each tile as occupied so towers
+     * cannot be placed on them.
      *
      * @param gc the GraphicsContext used to fill the path tiles
      */
@@ -124,7 +123,8 @@ public class GameWorld {
                 for (double y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
                     Point2D p = new Point2D(x, y);
                     gc.fillRect((x - 0.5) * 64, (y - 0.5) * 64, 64, 64);
-                    if (!occupied.contains(p)) occupied.add(p);
+                    if (!occupied.contains(p))
+                        occupied.add(p);
                 }
             }
         }

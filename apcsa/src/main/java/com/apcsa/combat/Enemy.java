@@ -4,7 +4,8 @@ import com.apcsa.world.GameWorld;
 import javafx.geometry.Point2D;
 
 /**
- * Abstract base class for all enemy types that move along the path and can take damage.
+ * Abstract base class for all enemy types that move along the path and can take
+ * damage.
  */
 public abstract class Enemy {
 
@@ -35,6 +36,7 @@ public abstract class Enemy {
 
         GameWorld.enemies.add(this);
     }
+
     /**
      * Updates enemy for one frame of the game.
      * For now, this moves the enemy to the right based on its speed.
@@ -44,17 +46,19 @@ public abstract class Enemy {
     public void update(double deltaTime) {
 
         Point2D goingToPoint = GameWorld.pathPoints[pathIndex];
-        Point2D comingFromPoint = GameWorld.pathPoints[pathIndex-1];
+        Point2D comingFromPoint = GameWorld.pathPoints[pathIndex - 1];
 
         Point2D hypotenusePoint = goingToPoint.subtract(comingFromPoint);
 
         double vectorX = hypotenusePoint.getX();
         double vectorY = hypotenusePoint.getY();
-        double hypotenuseDistance = Math.sqrt(vectorX*vectorX + vectorY*vectorY);
-        
-        double currentHypotenuseDistance = Math.sqrt((goingToPoint.getX()-getTileX())*(goingToPoint.getX()-getTileX()) + (goingToPoint.getY()-getTileY())*(goingToPoint.getY()-getTileY()));
-        
-        if(currentHypotenuseDistance <= speed*deltaTime){
+        double hypotenuseDistance = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+
+        double currentHypotenuseDistance = Math
+                .sqrt((goingToPoint.getX() - getTileX()) * (goingToPoint.getX() - getTileX())
+                        + (goingToPoint.getY() - getTileY()) * (goingToPoint.getY() - getTileY()));
+
+        if (currentHypotenuseDistance <= speed * deltaTime) {
             tileX = goingToPoint.getX();
             tileY = goingToPoint.getY();
             pathIndex++;
@@ -64,8 +68,8 @@ public abstract class Enemy {
             return;
         }
 
-        tileX += (speed * deltaTime*vectorX)/hypotenuseDistance;
-        tileY += (speed * deltaTime*vectorY)/hypotenuseDistance;
+        tileX += (speed * deltaTime * vectorX) / hypotenuseDistance;
+        tileY += (speed * deltaTime * vectorY) / hypotenuseDistance;
     }
 
     /**

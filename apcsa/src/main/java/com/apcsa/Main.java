@@ -102,14 +102,14 @@ public class Main extends Application {
         Text title = new Text("FACULTY FACE OFF");
         title.setX(170);
         title.setY(250);
-        //title.setRotate(30);
+        // title.setRotate(30);
         title.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
 
         startButton = new Button("PLAY");
         startButton.setLayoutX(350);
         startButton.setLayoutY(450);
         startButton.setPrefSize(100, 50);
-        startButton.setStyle("-fx-font-size: 20px; -fx-background-color: black; -fx-text-fill: white" );
+        startButton.setStyle("-fx-font-size: 20px; -fx-background-color: black; -fx-text-fill: white");
 
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             double phize = 1.0;
@@ -120,7 +120,7 @@ public class Main extends Application {
                 phize += 0.01 * direktion;
 
                 if (phize > 1.4 || phize < 0.6) {
-                    direktion = -direktion; 
+                    direktion = -direktion;
                 }
 
                 title.setScaleX(phize);

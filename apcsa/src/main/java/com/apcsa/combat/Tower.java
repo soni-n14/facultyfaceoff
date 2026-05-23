@@ -12,18 +12,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Abstract base class for all tower types that target, face, and attack enemies within range.
+ * Abstract base class for all tower types that target, face, and attack enemies
+ * within range.
  */
 public abstract class Tower {
 
-    //enum
+    // enum
     public enum TowerState {
         IDLE,
         COOLDOWN,
         SHOOTING
     }
 
-    //fields
+    // fields
     public static final double OCCUPANCY_SPACE = 1.0;
 
     protected int damage;
@@ -55,9 +56,9 @@ public abstract class Tower {
 
     private static HashMap<String, Image> imageCacheHit = new HashMap<>();
 
-    //constructor
-    public Tower(double tX, double tY){
-        
+    // constructor
+    public Tower(double tX, double tY) {
+
         level = 1;
         tileX = tX;
         tileY = tY;
@@ -68,20 +69,22 @@ public abstract class Tower {
 
     }
 
-    //non-abstract methods
+    // non-abstract methods
     /**
      * Checks if player canUpgrade
+     * 
      * @param money
-     * @return true if there is a next level and money is greater than or equal to cost
+     * @return true if there is a next level and money is greater than or equal to
+     *         cost
      */
-    public boolean canUpgrade(int money){
+    public boolean canUpgrade(int money) {
         if (level < maxLevel)
-            return money>=upgradeCost;
+            return money >= upgradeCost;
 
         return false;
     }
-   
-    public boolean isRemoved(){
+
+    public boolean isRemoved() {
         return removed;
     }
 
@@ -94,20 +97,22 @@ public abstract class Tower {
      *
      * @param deltaTime seconds elapsed since the last update
      */
-    public void updateAnimation(double deltaTime){
+    public void updateAnimation(double deltaTime) {
         animationFrameTimer += deltaTime;
-        while (animationFrameTimer >= animationFrameDuration){
+        while (animationFrameTimer >= animationFrameDuration) {
             animationFrameTimer -= animationFrameDuration;
             animationFrame = (animationFrame + 1) % animationFrameCount;
         }
     }
 
     /**
-     * Checks to see if player can upgrade, if they can, it increases their level, calls function to update stats
+     * Checks to see if player can upgrade, if they can, it increases their level,
+     * calls function to update stats
+     * 
      * @return true if the upgrade was successful, false otherwise
      */
-    public boolean upgrade(){
-        if (canUpgrade(Money.getMoney())){
+    public boolean upgrade() {
+        if (canUpgrade(Money.getMoney())) {
             level++;
             Money.subtractMoney(upgradeCost);
             updateStats(level);
@@ -171,7 +176,7 @@ public abstract class Tower {
      * and attacks when it is ready.
      *
      * @param deltaTime the amount of time, in seconds, since the last update
-     * @param enemies the list of enemies currently in the game
+     * @param enemies   the list of enemies currently in the game
      */
     public void update(double deltaTime, List<Enemy> enemies) {
         target = findTarget(enemies);
@@ -181,24 +186,20 @@ public abstract class Tower {
             if (shootAnimationTimer > 0) {
                 shootAnimationTimer -= deltaTime;
                 state = TowerState.SHOOTING;
-            } 
-            else {
+            } else {
                 state = TowerState.IDLE;
                 cooldownTimer = cooldown;
             }
-        }
-        else {
+        } else {
             faceTarget(target);
 
             if (shootAnimationTimer > 0) {
                 shootAnimationTimer -= deltaTime;
                 state = TowerState.SHOOTING;
-            } 
-            else if (cooldownTimer > 0) {
+            } else if (cooldownTimer > 0) {
                 cooldownTimer -= deltaTime;
                 state = TowerState.COOLDOWN;
-            } 
-            else {
+            } else {
                 attack(target);
                 shootAnimationTimer = 0.2;
                 cooldownTimer = cooldown;
@@ -221,11 +222,12 @@ public abstract class Tower {
         }
     }
 
-    public void showHitSpot(Enemy enemy) { 
+    public void showHitSpot(Enemy enemy) {
         String path = "/fxml/sprites/" + this.getClass().getSimpleName() + "/HITSPOT.png";
         Image img = getImage(path);
 
-        if (img == null) return;
+        if (img == null)
+            return;
 
         Platform.runLater(() -> {
             ImageView view = new ImageView(img);
@@ -258,7 +260,9 @@ public abstract class Tower {
     }
 
     /**
-     * gets the image from from the imageCache, if the hashmap doesn't have the image, it adds the image to the hashmap
+     * gets the image from from the imageCache, if the hashmap doesn't have the
+     * image, it adds the image to the hashmap
+     * 
      * @param path
      * @return
      */
@@ -271,53 +275,67 @@ public abstract class Tower {
         return imageCacheHit.get(path);
     }
 
-    //getters
-    public String getName(){
+    // getters
+    public String getName() {
         return getClass().getSimpleName();
     }
+
     public int getDamage() {
         return damage;
     }
+
     public int getRange() {
         return range;
     }
+
     public double getTileX() {
         return tileX;
     }
+
     public double getTileY() {
         return tileY;
     }
+
     public double getCooldown() {
         return cooldown;
     }
+
     public int getUpgradeCost() {
         return upgradeCost;
     }
+
     public int getLevel() {
         return level;
     }
+
     public int getMaxLevel() {
         return maxLevel;
     }
+
     public TowerState getState() {
         return state;
     }
+
     public Enemy getTarget() {
         return target;
     }
-    public int getAnimationFrame(){
+
+    public int getAnimationFrame() {
         return animationFrame;
     }
-    public int getAnimationFrameCount(){
+
+    public int getAnimationFrameCount() {
         return animationFrameCount;
     }
-    public double getRotationDeg(){
+
+    public double getRotationDeg() {
         return rotationDeg;
     }
 
-    //abstract methods
+    // abstract methods
     /**
      * Changes damage, range, cooldown and cost based on level
+     * 
      * @param level
      */
     public abstract void updateStats(int level);

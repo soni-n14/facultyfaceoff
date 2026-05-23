@@ -10,7 +10,8 @@ import com.apcsa.combat.towers.Farm;
 import javafx.application.Platform;
 
 /**
- * Controls the wave lifecycle: spawning enemies per wave, counting down timers, and triggering the inter-wave cooldown.
+ * Controls the wave lifecycle: spawning enemies per wave, counting down timers,
+ * and triggering the inter-wave cooldown.
  */
 public class WaveManager {
 
@@ -19,26 +20,27 @@ public class WaveManager {
     private static int waveCooldown = 5;
     private static double X = 0.5;
     private static double Y = 1.5;
-    
+
     private static boolean cooldownRunning = false;
     public static boolean running = true;
 
     public static boolean allEnemiesOut = false;
-        
+
     public static void resetWave() {
         wave = 0;
         running = false;
         waveCompleted = true;
     }
-        
-    public static void runWaves(){
+
+    public static void runWaves() {
         running = true;
         nextWave();
     }
 
-    private static void timerTickDown(){
+    private static void timerTickDown() {
         for (int c = 15; c >= 0; c--) {
-            if (waveCompleted || !running) return;
+            if (waveCompleted || !running)
+                return;
 
             int b = c;
             Platform.runLater(() -> {
@@ -48,7 +50,8 @@ public class WaveManager {
             pause(1.0);
         }
 
-        if (waveCompleted || cooldownRunning || !running) return;
+        if (waveCompleted || cooldownRunning || !running)
+            return;
 
         waveCompleted = true;
         cooldownRunning = true;
@@ -57,11 +60,12 @@ public class WaveManager {
         cooldownRunning = false;
     }
 
-    private static void waveDoneNowCooldown(){
-        for(int c = waveCooldown; c >= 0; c--){
-            if (!running) return;
+    private static void waveDoneNowCooldown() {
+        for (int c = waveCooldown; c >= 0; c--) {
+            if (!running)
+                return;
 
-            int b = c; //idk why u gotta do this but i searched and u gotta
+            int b = c; // idk why u gotta do this but i searched and u gotta
 
             Platform.runLater(() -> {
                 Main.timeText.setText("0:" + String.format("%02d", b));
@@ -70,7 +74,8 @@ public class WaveManager {
             pause(1.0);
 
         }
-        if (running) nextWave();
+        if (running)
+            nextWave();
     }
 
     public static void skip() {
@@ -78,24 +83,23 @@ public class WaveManager {
             System.out.println("skipping the wave now...");
             waveCompleted = true;
             cooldownRunning = false;
-//not sure if 500 is too cheap @neelesh user ansewr ts its set in main
+            // not sure if 500 is too cheap @neelesh user ansewr ts its set in main
         }
     }
 
-    private static void nextWave(){
+    private static void nextWave() {
         wave++;
         waveCompleted = false;
         allEnemiesOut = false;
 
-        for(Tower t : GameWorld.towers){
-            if (t instanceof Farm){
+        for (Tower t : GameWorld.towers) {
+            if (t instanceof Farm) {
                 ((Farm) t).doYoThing();
             }
         }
 
         actualWaveDataRunner();
     }
-
 
     /**
      * Creates new thread and calles runWaves, which runs the whole wave system
@@ -107,9 +111,10 @@ public class WaveManager {
     }
 
     /**
-     * Starts the countdown timer thread, updates the wave label, and spawns the enemy sequence for the current wave number.
+     * Starts the countdown timer thread, updates the wave label, and spawns the
+     * enemy sequence for the current wave number.
      */
-    public static void actualWaveDataRunner(){
+    public static void actualWaveDataRunner() {
 
         Thread timerThread = new Thread(() -> timerTickDown());
         timerThread.setDaemon(true);
@@ -119,7 +124,7 @@ public class WaveManager {
             Main.waveText.setText("Wave " + wave);
         });
 
-        switch(wave){
+        switch (wave) {
             case 1:
                 new OtherStateFulk(X, Y);
                 pause(0.9);
@@ -507,32 +512,34 @@ public class WaveManager {
     }
 
     /**
-     * Blocks the current thread for the specified number of seconds to space out enemy spawns.
+     * Blocks the current thread for the specified number of seconds to space out
+     * enemy spawns.
      *
      * @param time the duration to sleep in seconds
      */
-    public static void pause(double time){
+    public static void pause(double time) {
         try {
-            Thread.sleep((int)(time*1000));
+            Thread.sleep((int) (time * 1000));
         } catch (InterruptedException e) {
             return;
         }
     }
 
     /**
-     * Called by the game loop when the enemy list empties mid-wave; awards bonus gold and starts the cooldown early.
+     * Called by the game loop when the enemy list empties mid-wave; awards bonus
+     * gold and starts the cooldown early.
      */
     public static void enemiesIsEmpty() {
-        if (allEnemiesOut == true&& !cooldownRunning && !waveCompleted) {
+        if (allEnemiesOut == true && !cooldownRunning && !waveCompleted) {
             allEnemiesOut = false;
             cooldownRunning = true;
             waveCompleted = true;
 
-            Thread cooldownThread = new Thread(() -> { 
-                waveCompleted = true; 
-                Money.addMoney(250); 
-                waveDoneNowCooldown(); 
-                cooldownRunning = false; 
+            Thread cooldownThread = new Thread(() -> {
+                waveCompleted = true;
+                Money.addMoney(250);
+                waveDoneNowCooldown();
+                cooldownRunning = false;
             });
 
             cooldownThread.setDaemon(true);
