@@ -78,7 +78,7 @@ public class WaveManager {
             System.out.println("skipping the wave now...");
             waveCompleted = true;
             cooldownRunning = false;
-            // dont need to add money here if we want but user said cost 500
+//not sure if 500 is too cheap @neelesh user ansewr ts its set in main
         }
     }
 
