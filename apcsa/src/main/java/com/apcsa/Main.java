@@ -97,7 +97,7 @@ public class Main extends Application {
 
     public void setUpHomeScreen(Stage stage) {
         Pane startPane = new Pane();
-        startPane.setStyle("-fx-background-color: green;");
+        startPane.setStyle("-fx-background-color: RED;");
 
         Text title = new Text("FACULTY FACE OFF");
         title.setX(170);

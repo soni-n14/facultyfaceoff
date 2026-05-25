@@ -112,6 +112,9 @@ public class GameWorld {
      */
     public static void paintPathAndOccupy(GraphicsContext gc) {
         gc.setFill(Color.LIGHTGREEN);
+        gc.fillRect(0, 0, 800, 600);
+        
+        gc.setFill(Color.LIGHTYELLOW);
 
         for (int i = 1; i < pathPoints.length; i++) {
             double x1 = pathPoints[i - 1].getX();
