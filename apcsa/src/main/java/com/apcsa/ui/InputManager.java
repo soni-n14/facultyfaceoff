@@ -159,6 +159,11 @@ public class InputManager {
     public static void insidePlaced(Tower tower, double tX, double tY) {
 
         Main.upgradeButton.setVisible(true);
+        if (tower.getLevel() < tower.getMaxLevel()) {
+            Main.upgradeButton.setText("Upgrade: $" + tower.getUpgradeCost());
+        } else {
+            Main.upgradeButton.setText("Max Level");
+        }
         isInTowerSelectedMode = true;
 
         Main.rangePreviewPlaced.setCenterX(tX * 64);
@@ -169,6 +174,11 @@ public class InputManager {
 
             if (tower.upgrade()) {
                 Main.rangePreviewPlaced.setRadius(tower.getRange() * 64.0);
+                if (tower.getLevel() < tower.getMaxLevel()) {
+                    Main.upgradeButton.setText("Upgrade: $" + tower.getUpgradeCost());
+                } else {
+                    Main.upgradeButton.setText("Max Level");
+                }
             }
         });
 
@@ -181,7 +191,13 @@ public class InputManager {
      * @param button
      */
     public static void setUpImageClick(Button button) {
-        button.setOnMouseClicked(e -> imgNumberClicked(button.getText()));
+        button.setOnMouseClicked(e -> {
+            String text = button.getText();
+            if (text.contains(":")) {
+                text = text.split(":")[0];
+            }
+            imgNumberClicked(text);
+        });
     }
 
     /**

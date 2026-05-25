@@ -199,9 +199,9 @@ public class Main extends Application {
      * buttons.
      */
     public void setUpButtons() {
-        signoreButton = new Button("Signore");
-        farmButton = new Button("Farm");
-        kirshButton = new Button("Kirsh");
+        signoreButton = new Button("Signore: $50");
+        farmButton = new Button("Farm: $300");
+        kirshButton = new Button("Kirsh: $150");
         skipButton = new Button("Skip");
         upgradeButton = new Button("Upgrade");
         upgradeButton.setVisible(false);

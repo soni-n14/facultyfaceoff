@@ -55,7 +55,7 @@ public class UIStyles {
      */
     public static void styleTowerPlacementButton(Button button, int x, int y) {
         button.setStyle(TOWER_PLACEMENT_BUTTON);
-        button.setPrefWidth(80);
+        button.setPrefWidth(145);
         button.setPrefHeight(40);
 
         position(button, x, y);
