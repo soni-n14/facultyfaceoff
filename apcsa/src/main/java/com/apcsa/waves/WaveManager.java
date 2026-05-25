@@ -126,29 +126,29 @@ public class WaveManager {
 
         switch (wave) {
             case 1:
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.9);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.9);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.9);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.9);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 break;
 
             case 2:
-                new OtherStateFulk(X, Y);
-                pause(0.7);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.7);
                 new MinionFulk(X, Y);
                 pause(0.7);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.7);
                 new MinionFulk(X, Y);
                 pause(0.7);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
+                pause(0.7);
+                new MinionFulk(X, Y);
                 break;
 
             case 3:
@@ -158,15 +158,15 @@ public class WaveManager {
                 pause(0.45);
                 new MinionFulk(X, Y);
                 pause(0.45);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.45);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.45);
                 new MinionFulk(X, Y);
                 pause(0.45);
                 new MinionFulk(X, Y);
                 pause(0.45);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 break;
 
             case 4:
@@ -174,9 +174,9 @@ public class WaveManager {
                 pause(0.4);
                 new MinionFulk(X, Y);
                 pause(0.4);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.35);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.35);
                 new MinionFulk(X, Y);
                 pause(0.4);
@@ -198,7 +198,7 @@ public class WaveManager {
                 pause(0.35);
                 new MinionFulk(X, Y);
                 pause(0.35);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.3);
                 new ScoutFulk(X, Y);
                 pause(0.25);
@@ -218,9 +218,9 @@ public class WaveManager {
                 pause(0.2);
                 new ScoutFulk(X, Y);
                 pause(0.2);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.25);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.25);
                 new MinionFulk(X, Y);
                 pause(0.3);
@@ -242,9 +242,9 @@ public class WaveManager {
                 pause(0.25);
                 new SoldierFulk(X, Y);
                 pause(0.55);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.2);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.2);
                 new MinionFulk(X, Y);
                 break;
@@ -292,9 +292,9 @@ public class WaveManager {
                 pause(0.2);
                 new MinionFulk(X, Y);
                 pause(0.2);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.2);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.2);
                 new BruteFulk(X, Y);
                 break;
@@ -380,9 +380,9 @@ public class WaveManager {
                 pause(0.14);
                 new MinionFulk(X, Y);
                 pause(0.14);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.14);
-                new OtherStateFulk(X, Y);
+                new MinionFulk(X, Y);
                 pause(0.14);
                 new BruteFulk(X, Y);
                 pause(0.65);
@@ -501,6 +501,8 @@ public class WaveManager {
                 new BruteFulk(X, Y);
                 pause(0.45);
                 new BruteFulk(X, Y);
+                pause(1.0);
+                new BFB(X, Y);
                 break;
 
             default:
