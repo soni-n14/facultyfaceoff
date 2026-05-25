@@ -13,7 +13,9 @@ public class Hover {
     /**
      * Adds hover behavior to the imageView
      * When mouse enters, shows HP of enemy above image
-     * When enemy moves, udpate is called, which updates position and text of the text. It also updates based on enemy health
+     * When enemy moves, udpate is called, which updates position and text of the
+     * text. It also updates based on enemy health
+     * 
      * @param imageView
      * @param enemy
      */
@@ -47,6 +49,7 @@ public class Hover {
 
     /**
      * Updates position and text of the text
+     * 
      * @param hpText
      * @param imageView
      * @param enemy

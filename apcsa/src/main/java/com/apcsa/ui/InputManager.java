@@ -17,7 +17,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 
 /**
- * Handles all player input including tower-placement mouse clicks, tower selection, and keyboard shortcuts.
+ * Handles all player input including tower-placement mouse clicks, tower
+ * selection, and keyboard shortcuts.
  */
 public class InputManager {
 
@@ -29,38 +30,38 @@ public class InputManager {
 
     private static Class clasz;
 
-    //runs off start, putting values into the hashmaps
+    // runs off start, putting values into the hashmaps
     static {
 
         towerClasses.put("Signore", Signore.class);
         towerClassesRange.put("Signore", Signore.STARTER_RANGE);
-        towerClassesBaseCost.put("Signore",Signore.BASE_COST);
+        towerClassesBaseCost.put("Signore", Signore.BASE_COST);
 
         towerClasses.put("Farm", Farm.class);
         towerClassesRange.put("Farm", Farm.STARTER_RANGE);
-        towerClassesBaseCost.put("Farm",Farm.BASE_COST);
+        towerClassesBaseCost.put("Farm", Farm.BASE_COST);
 
         towerClasses.put("Kirsh", Kirsh.class);
         towerClassesRange.put("Kirsh", Kirsh.STARTER_RANGE);
-        towerClassesBaseCost.put("Kirsh",Kirsh.BASE_COST);
+        towerClassesBaseCost.put("Kirsh", Kirsh.BASE_COST);
 
     }
 
     /**
      * Called when the button is clicked.
+     * 
      * @param name
      */
-    public static void imgNumberClicked(String name){
+    public static void imgNumberClicked(String name) {
 
         isInTowerSelectedMode = false;
         Main.rangePreviewPlaced.setVisible(isInPlaceMode);
-        
 
         clasz = towerClasses.get(name);
-        double rad =  towerClassesRange.get(name) * 64.0;
+        double rad = towerClassesRange.get(name) * 64.0;
 
         Main.rangePreview.setRadius(rad);
-        
+
         Image img = new Image(InputManager.class.getResourceAsStream("/fxml/sprites/" + name + "/PREVIEW.png"));
         Main.towerPreview.setImage(img);
 
@@ -68,7 +69,7 @@ public class InputManager {
         Main.towerPreview.setVisible(!isInPlaceMode);
         Main.upgradeButton.setVisible(isInTowerSelectedMode);
 
-        if(isInPlaceMode == false){
+        if (isInPlaceMode == false) {
             isInPlaceMode = true;
             setupMouseClick(clasz, name);
             return;
@@ -78,10 +79,15 @@ public class InputManager {
     }
 
     /**
-     * This is the function that sets up mouse click for the grid, whether while in place mode, or not in place mode. 
-     * If it is in place mode, it places a new class if the user has enough money and the place isn't occupied.
-     * If it is not in place mode, it checks if it clicked anything, and if it did click something, it calls insidePlaced. 
-     * It also changes the rangePreview's and towerPreview's position whenever mouse is moved
+     * This is the function that sets up mouse click for the grid, whether while in
+     * place mode, or not in place mode.
+     * If it is in place mode, it places a new class if the user has enough money
+     * and the place isn't occupied.
+     * If it is not in place mode, it checks if it clicked anything, and if it did
+     * click something, it calls insidePlaced.
+     * It also changes the rangePreview's and towerPreview's position whenever mouse
+     * is moved
+     * 
      * @param clasz
      * @param name
      */
@@ -94,30 +100,33 @@ public class InputManager {
 
             int cost = towerClassesBaseCost.get(name);
 
-            if(isInPlaceMode && !GameWorld.occupied.contains(spot) && Money.checkMoney(cost)){
+            if (isInPlaceMode && !GameWorld.occupied.contains(spot) && Money.checkMoney(cost)) {
 
-                try { clasz.getConstructor(double.class, double.class).newInstance(tX, tY); }
-                catch (Exception ex) { ex.printStackTrace(); }
-                
+                try {
+                    clasz.getConstructor(double.class, double.class).newInstance(tX, tY);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
                 GameWorld.occupied.add(spot);
                 isInPlaceMode = false;
 
             }
 
-            else if(!isInPlaceMode){
+            else if (!isInPlaceMode) {
                 boolean oneClicked = false;
-                for(Tower tower : GameWorld.towers){
-                    if(tower.getTileX() == tX && tower.getTileY() == tY){
+                for (Tower tower : GameWorld.towers) {
+                    if (tower.getTileX() == tX && tower.getTileY() == tY) {
                         oneClicked = true;
                         insidePlaced(tower, tX, tY);
                     }
                 }
-                
-                if(!oneClicked)
+
+                if (!oneClicked)
                     isInTowerSelectedMode = false;
-                
+
             }
-                
+
             Main.rangePreview.setVisible(isInPlaceMode);
             Main.rangePreviewPlaced.setVisible(isInTowerSelectedMode);
             Main.towerPreview.setVisible(isInPlaceMode);
@@ -125,8 +134,8 @@ public class InputManager {
         });
 
         Main.scene.setOnMouseMoved(e -> {
-            int tileX = (int)(e.getX() / 64);
-            int tileY = (int)(e.getY() / 64);
+            int tileX = (int) (e.getX() / 64);
+            int tileY = (int) (e.getY() / 64);
 
             double centerX = tileX * 64 + 32;
             double centerY = tileY * 64 + 32;
@@ -140,14 +149,21 @@ public class InputManager {
     }
 
     /**
-     * makes upgrade button visible, towerselected mode too, sets range, and also when upgrade button is clicked, it upgrades
+     * makes upgrade button visible, towerselected mode too, sets range, and also
+     * when upgrade button is clicked, it upgrades
+     * 
      * @param tower
      * @param tX
      * @param tY
      */
-    public static void insidePlaced(Tower tower, double tX, double tY){
+    public static void insidePlaced(Tower tower, double tX, double tY) {
 
         Main.upgradeButton.setVisible(true);
+        if (tower.getLevel() < tower.getMaxLevel()) {
+            Main.upgradeButton.setText("Upgrade: $" + tower.getUpgradeCost());
+        } else {
+            Main.upgradeButton.setText("Max Level");
+        }
         isInTowerSelectedMode = true;
 
         Main.rangePreviewPlaced.setCenterX(tX * 64);
@@ -158,34 +174,48 @@ public class InputManager {
 
             if (tower.upgrade()) {
                 Main.rangePreviewPlaced.setRadius(tower.getRange() * 64.0);
+                if (tower.getLevel() < tower.getMaxLevel()) {
+                    Main.upgradeButton.setText("Upgrade: $" + tower.getUpgradeCost());
+                } else {
+                    Main.upgradeButton.setText("Max Level");
+                }
             }
         });
 
     }
 
     /**
-     * Called from a different class, it has a listener to see when the img is clicked, button should have text of a tower
+     * Called from a different class, it has a listener to see when the img is
+     * clicked, button should have text of a tower
+     * 
      * @param button
      */
-    public static void setUpImageClick(Button button){
-        button.setOnMouseClicked(e -> imgNumberClicked(button.getText()));
+    public static void setUpImageClick(Button button) {
+        button.setOnMouseClicked(e -> {
+            String text = button.getText();
+            if (text.contains(":")) {
+                text = text.split(":")[0];
+            }
+            imgNumberClicked(text);
+        });
     }
 
     /**
      * Whenever a key is pressed, calls pressed
      */
-    public static void setUpKeybindManager(){
+    public static void setUpKeybindManager() {
         Main.scene.setOnKeyPressed(e -> pressed(e.getCode()));
     }
 
     /**
      * Checks to see what key is passed
      * Right now, if the key is esc, it gets out of every mode.
+     * 
      * @param e
      */
-    public static void pressed(KeyCode e){
+    public static void pressed(KeyCode e) {
         Main.upgradeButton.setVisible(false);
-        if(e == KeyCode.ESCAPE){
+        if (e == KeyCode.ESCAPE) {
             isInPlaceMode = false;
             isInTowerSelectedMode = false;
 
@@ -193,6 +223,22 @@ public class InputManager {
             Main.rangePreviewPlaced.setVisible(false);
             Main.towerPreview.setVisible(false);
             Main.upgradeButton.setVisible(false);
+        }
+
+        if (e == KeyCode.M) {
+            System.out.println("testing bug: giving money");
+            Money.addMoney(1000);
+        }
+
+        if (e == KeyCode.H) {
+            System.out.println("testing bug: fixing health");
+            com.apcsa.world.Health.baseHealth = 100;
+            Main.baseHealthText.setText("100/100");
+        }
+
+        if (e == KeyCode.K) {
+            System.out.println("testing bug: killing all");
+            GameWorld.enemies.clear();
         }
     }
 
