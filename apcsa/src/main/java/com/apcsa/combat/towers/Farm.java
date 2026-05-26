@@ -10,7 +10,7 @@ import com.apcsa.world.Money;
  */
 public class Farm extends Tower {
     
-    public static final int BASE_COST = 300;
+    public static final int BASE_COST = 100;
     public static final int STARTER_RANGE = 2;
 
     private int cashPerWave;
@@ -46,25 +46,25 @@ public class Farm extends Tower {
     public void updateStats(int level){
         switch(level){
             case 1:
+                cashPerWave = 50;
+
+                damage = 0;
+                range = 2;
+                cooldown = 1000;
+                upgradeCost = 250;
+                bulletSpeed = 0.0;
+                break;
+            case 2:
                 cashPerWave = 100;
 
                 damage = 0;
                 range = 2;
                 cooldown = 1000;
-                upgradeCost = 650;
-                bulletSpeed = 0.0;
-                break;
-            case 2:
-                cashPerWave = 250;
-
-                damage = 0;
-                range = 2;
-                cooldown = 1000;
-                upgradeCost = 1000;
+                upgradeCost = 600;
                 bulletSpeed = 0.0;
                 break;
             case 3:
-                cashPerWave = 550;
+                cashPerWave = 250;
 
                 damage = 0;
                 range = 2;
