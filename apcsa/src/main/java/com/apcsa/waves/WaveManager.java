@@ -40,7 +40,7 @@ public class WaveManager {
     private static void timerTickDown() {
         for (int c = 15; c >= 0; c--) {
             if (waveCompleted || !running)
-                return;
+                break;
 
             int b = c;
             Platform.runLater(() -> {
@@ -50,20 +50,22 @@ public class WaveManager {
             pause(1.0);
         }
 
-        if (waveCompleted || cooldownRunning || !running)
+        if (!running)
             return;
 
-        waveCompleted = true;
-        cooldownRunning = true;
-        Money.addMoney(100);
-        waveDoneNowCooldown();
-        cooldownRunning = false;
+        if (!cooldownRunning) {
+            waveCompleted = true;
+            cooldownRunning = true;
+            Money.addMoney(100);
+            waveDoneNowCooldown();
+            cooldownRunning = false;
+        }
     }
 
     private static void waveDoneNowCooldown() {
         for (int c = waveCooldown; c >= 0; c--) {
-            if (!running)
-                return;
+            if (!running || !cooldownRunning)
+                break;
 
             int b = c; // idk why u gotta do this but i searched and u gotta
 
@@ -79,11 +81,14 @@ public class WaveManager {
     }
 
     public static void skip() {
-        if (cooldownRunning || !waveCompleted) {
-            System.out.println("skipping the wave now...");
-            waveCompleted = true;
+        if (!running) return;
+
+        if (cooldownRunning) {
+            System.out.println("skipping the cooldown now...");
             cooldownRunning = false;
-            // not sure if 500 is too cheap @neelesh user ansewr ts its set in main
+        } else if (!waveCompleted) {
+            System.out.println("skipping the wave timer now...");
+            waveCompleted = true;
         }
     }
 
