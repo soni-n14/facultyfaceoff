@@ -18,6 +18,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 import javafx.animation.AnimationTimer;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Main entry point and root JavaFX Application that initialises the home screen
@@ -64,6 +66,12 @@ public class Main extends Application {
      * @param stage the primary JavaFX stage used to display the game scene
      */
     public void runGame(Stage stage) {
+        String musicPath = Main.class.getResource("/fxml/music.mp3").toExternalForm();
+        Media media = new Media(musicPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setVolume(0.5);
+        mediaPlayer.play();
 
         setUpCanvasAndScene(stage);
 
