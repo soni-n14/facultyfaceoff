@@ -86,6 +86,10 @@ public class Animations {
 
                 towerViews.put(tower, view);
                 Main.pane.getChildren().add(view);
+                Main.waveText.toFront();
+                Main.timeText.toFront();
+                Main.baseHealthText.toFront();
+                Main.moneyText.toFront();
             }
 
             view.setImage(img);

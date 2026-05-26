@@ -25,11 +25,13 @@ public class WaveManager {
     public static boolean running = true;
 
     public static boolean allEnemiesOut = false;
+    public static boolean waitingForWin = false;
 
     public static void resetWave() {
         wave = 0;
         running = false;
         waveCompleted = true;
+        waitingForWin = false;
     }
 
     public static void runWaves() {
@@ -97,6 +99,11 @@ public class WaveManager {
         waveCompleted = false;
         allEnemiesOut = false;
 
+        if (wave > 15) {
+            waitingForWin = true;
+            return;
+        }
+
         for (Tower t : GameWorld.towers) {
             if (t instanceof Farm) {
                 ((Farm) t).doYoThing();
@@ -121,7 +128,7 @@ public class WaveManager {
      */
     public static void actualWaveDataRunner() {
 
-        Thread timerThread = new Thread(() -> timerTickDown());
+        Thread timerThread = new Thread(() -> { try { timerTickDown(); } catch (RuntimeException e) {} });
         timerThread.setDaemon(true);
         timerThread.start();
 
@@ -129,7 +136,7 @@ public class WaveManager {
             Main.waveText.setText("Wave " + wave);
         });
 
-        switch (wave) {
+        try { switch (wave) {
             case 1:
                 new MinionFulk(X, Y);
                 pause(0.9);
@@ -512,6 +519,8 @@ public class WaveManager {
 
             default:
                 pause(3);
+        } } catch (RuntimeException e) {
+            return;
         }
 
         allEnemiesOut = true;
@@ -530,6 +539,7 @@ public class WaveManager {
         } catch (InterruptedException e) {
             return;
         }
+        if (!running) throw new RuntimeException("wave stopped");
     }
 
     /**
@@ -537,15 +547,23 @@ public class WaveManager {
      * gold and starts the cooldown early.
      */
     public static void enemiesIsEmpty() {
+        if (waitingForWin && com.apcsa.world.Health.baseHealth > 0) {
+            Main.showWinScreen();
+            waitingForWin = false;
+            return;
+        }
+
         if (allEnemiesOut == true && !cooldownRunning && !waveCompleted) {
             allEnemiesOut = false;
             cooldownRunning = true;
             waveCompleted = true;
 
             Thread cooldownThread = new Thread(() -> {
-                waveCompleted = true;
-                Money.addMoney(250);
-                waveDoneNowCooldown();
+                try {
+                    waveCompleted = true;
+                    Money.addMoney(250);
+                    waveDoneNowCooldown();
+                } catch (RuntimeException e) {}
                 cooldownRunning = false;
             });
 

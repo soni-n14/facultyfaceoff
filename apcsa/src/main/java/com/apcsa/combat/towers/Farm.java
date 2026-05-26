@@ -19,6 +19,7 @@ public class Farm extends Tower {
         super(tX, tY);
 
         maxLevel = 3;
+        sellValue = BASE_COST / 2;
         cooldownTimer = cooldown;
 
         updateStats(level);

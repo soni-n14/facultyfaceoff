@@ -111,9 +111,6 @@ public class GameWorld {
      * @param gc the GraphicsContext used to fill the path tiles
      */
     public static void paintPathAndOccupy(GraphicsContext gc) {
-        gc.setFill(Color.LIGHTGREEN);
-        gc.fillRect(0, 0, 800, 600);
-        
         gc.setFill(Color.LIGHTYELLOW);
 
         for (int i = 1; i < pathPoints.length; i++) {

@@ -40,8 +40,11 @@ public class Main extends Application {
     public static Button signoreButton;
     public static Button farmButton;
     public static Button kirshButton;
+    public static Button welshButton;
+    public static Button tsaiButton;
     public static Button skipButton;
     public static Button upgradeButton;
+    public static Button sellButton;
 
     public static Scene scene;
 
@@ -50,6 +53,9 @@ public class Main extends Application {
     public static ImageView towerPreview;
 
     public static Button startButton;
+    public static MediaPlayer mediaPlayer;
+    public static MediaPlayer winPlayer;
+    public static MediaPlayer losePlayer;
 
     @Override
     public void start(Stage stage) {
@@ -68,7 +74,7 @@ public class Main extends Application {
     public void runGame(Stage stage) {
         String musicPath = Main.class.getResource("/fxml/music.mp3").toExternalForm();
         Media media = new Media(musicPath);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.5);
         mediaPlayer.play();
@@ -173,6 +179,9 @@ public class Main extends Application {
      * Draws the tile grid lines and colours the enemy path tiles on the canvas.
      */
     public void setUpGrid() {
+        Image bg = new Image(Main.class.getResourceAsStream("/fxml/classroom.png"));
+        gc.drawImage(bg, 0, 0, 800, 600);
+
         gc.setStroke(Color.LIGHTGRAY);
         for (int x = 0; x <= 800; x += 64) {
             gc.strokeLine(x, 0, x, 600);
@@ -210,42 +219,60 @@ public class Main extends Application {
         signoreButton = new Button("Signore: $50");
         farmButton = new Button("Farm: $300");
         kirshButton = new Button("Kirsh: $300");
+        welshButton = new Button("Welsh: $350");
+        tsaiButton = new Button("Tsai: $125");
         skipButton = new Button("Skip");
         upgradeButton = new Button("Upgrade");
         upgradeButton.setVisible(false);
+        sellButton = new Button("Sell");
+        sellButton.setVisible(false);
 
         UIStyles.styleTowerPlacementButton(kirshButton, 350, 400);
         UIStyles.styleTowerPlacementButton(signoreButton, 350, 500);
         UIStyles.styleTowerPlacementButton(farmButton, 500, 500);
+        UIStyles.styleTowerPlacementButton(welshButton, 500, 400);
+        UIStyles.styleTowerPlacementButton(tsaiButton, 200, 400);
         UIStyles.styleTowerPlacementButton(skipButton, 200, 500);
         UIStyles.styleTowerPlacementButton(upgradeButton, 500, 200);
+        UIStyles.styleTowerPlacementButton(sellButton, 500, 300);
 
         skipButton.setOnMouseClicked(e -> {
                 com.apcsa.waves.WaveManager.skip();
         });
 
-        pane.getChildren().addAll(signoreButton, kirshButton, skipButton, farmButton, upgradeButton);
+        pane.getChildren().addAll(signoreButton, kirshButton, skipButton, farmButton, welshButton, tsaiButton, upgradeButton, sellButton);
 
         InputManager.setUpImageClick(signoreButton);
         InputManager.setUpImageClick(farmButton);
         InputManager.setUpImageClick(kirshButton);
+        InputManager.setUpImageClick(welshButton);
+        InputManager.setUpImageClick(tsaiButton);
     }
 
-    public static void showGameOver() {
+    public static void showWinScreen() {
         javafx.application.Platform.runLater(() -> {
-            Pane gameOverPane = new Pane();
-            gameOverPane.setStyle("-fx-background-color: black;");
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+            String winSound = Main.class.getResource("/fxml/win.wav").toExternalForm();
+            Media winMedia = new Media(winSound);
+            winPlayer = new MediaPlayer(winMedia);
+            winPlayer.play();
 
-            Text overText = new Text("GAME OVER");
-            overText.setX(250);
-            overText.setY(250);
-            overText.setStyle("-fx-font-size: 60px; -fx-fill: red; -fx-font-family: 'Impact';");
+            Pane winPane = new Pane();
+            winPane.setStyle("-fx-background-color: black;");
 
-            Button restartBtn = new Button("RESTART");
-            restartBtn.setLayoutX(350);
+            Text winText = new Text("YOU WIN!");
+            winText.setX(220);
+            winText.setY(250);
+            winText.setStyle("-fx-font-size: 70px; -fx-fill: gold; -fx-font-family: 'Impact';");
+
+            Button restartBtn = new Button("PLAY AGAIN");
+            restartBtn.setLayoutX(330);
             restartBtn.setLayoutY(350);
-            restartBtn.setPrefSize(100, 50);
+            restartBtn.setPrefSize(140, 50);
             restartBtn.setOnAction(e -> {
+                if (winPlayer != null) winPlayer.stop();
                 Health.baseHealth = 100;
                 com.apcsa.world.Money.resetMoney();
                 com.apcsa.waves.WaveManager.resetWave();
@@ -258,7 +285,53 @@ public class Main extends Application {
                 m.start((Stage) scene.getWindow());
             });
 
-            gameOverPane.getChildren().addAll(overText, restartBtn);
+            winPane.getChildren().addAll(winText, restartBtn);
+            scene.setRoot(winPane);
+        });
+    }
+
+    public static void showGameOver() {
+        javafx.application.Platform.runLater(() -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+            String loseSound = Main.class.getResource("/fxml/lose.wav").toExternalForm();
+            Media loseMedia = new Media(loseSound);
+            losePlayer = new MediaPlayer(loseMedia);
+            losePlayer.play();
+
+            Pane gameOverPane = new Pane();
+            gameOverPane.setStyle("-fx-background-color: black;");
+
+            Text loseText = new Text("YOU LOSE!");
+            loseText.setX(210);
+            loseText.setY(200);
+            loseText.setStyle("-fx-font-size: 70px; -fx-fill: red; -fx-font-family: 'Impact';");
+
+            Text overText = new Text("GAME OVER");
+            overText.setX(250);
+            overText.setY(280);
+            overText.setStyle("-fx-font-size: 60px; -fx-fill: red; -fx-font-family: 'Impact';");
+
+            Button restartBtn = new Button("RESTART");
+            restartBtn.setLayoutX(350);
+            restartBtn.setLayoutY(380);
+            restartBtn.setPrefSize(100, 50);
+            restartBtn.setOnAction(e -> {
+                if (losePlayer != null) losePlayer.stop();
+                Health.baseHealth = 100;
+                com.apcsa.world.Money.resetMoney();
+                com.apcsa.waves.WaveManager.resetWave();
+                com.apcsa.world.GameWorld.stopGameLoop();
+                com.apcsa.waves.WaveManager.allEnemiesOut = true;
+                GameWorld.enemies.clear();
+                GameWorld.towers.clear();
+                GameWorld.occupied.clear();
+                Main m = new Main();
+                m.start((Stage) scene.getWindow());
+            });
+
+            gameOverPane.getChildren().addAll(loseText, overText, restartBtn);
             scene.setRoot(gameOverPane);
         });
     }

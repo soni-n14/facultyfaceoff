@@ -31,6 +31,7 @@ public abstract class Tower {
     protected int range;
     protected double cooldown;
     protected int upgradeCost;
+    protected int sellValue;
     protected int level;
     protected int maxLevel;
 
@@ -302,6 +303,10 @@ public abstract class Tower {
 
     public int getUpgradeCost() {
         return upgradeCost;
+    }
+
+    public int getSellValue() {
+        return sellValue;
     }
 
     public int getLevel() {

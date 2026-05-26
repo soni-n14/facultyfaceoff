@@ -3,6 +3,8 @@ package com.apcsa.ui;
 import com.apcsa.combat.towers.Farm;
 import com.apcsa.combat.towers.Signore;
 import com.apcsa.combat.towers.Kirsh;
+import com.apcsa.combat.towers.Welsh;
+import com.apcsa.combat.towers.Tsai;
 import com.apcsa.world.GameWorld;
 import com.apcsa.world.Money;
 
@@ -45,6 +47,14 @@ public class InputManager {
         towerClassesRange.put("Kirsh", Kirsh.STARTER_RANGE);
         towerClassesBaseCost.put("Kirsh", Kirsh.BASE_COST);
 
+        towerClasses.put("Welsh", Welsh.class);
+        towerClassesRange.put("Welsh", Welsh.STARTER_RANGE);
+        towerClassesBaseCost.put("Welsh", Welsh.BASE_COST);
+
+        towerClasses.put("Tsai", Tsai.class);
+        towerClassesRange.put("Tsai", Tsai.STARTER_RANGE);
+        towerClassesBaseCost.put("Tsai", Tsai.BASE_COST);
+
     }
 
     /**
@@ -68,6 +78,7 @@ public class InputManager {
         Main.rangePreview.setVisible(!isInPlaceMode);
         Main.towerPreview.setVisible(!isInPlaceMode);
         Main.upgradeButton.setVisible(isInTowerSelectedMode);
+        Main.sellButton.setVisible(isInTowerSelectedMode);
 
         if (isInPlaceMode == false) {
             isInPlaceMode = true;
@@ -131,6 +142,7 @@ public class InputManager {
             Main.rangePreviewPlaced.setVisible(isInTowerSelectedMode);
             Main.towerPreview.setVisible(isInPlaceMode);
             Main.upgradeButton.setVisible(isInTowerSelectedMode);
+            Main.sellButton.setVisible(isInTowerSelectedMode);
         });
 
         Main.scene.setOnMouseMoved(e -> {
@@ -166,6 +178,38 @@ public class InputManager {
         }
         isInTowerSelectedMode = true;
 
+        Main.sellButton.setVisible(true);
+        Main.sellButton.setText("Sell: $" + tower.getSellValue());
+
+        // position buttons next to the clicked tower
+        double towerPixelX = tX * 64;
+        double towerPixelY = tY * 64;
+        double btnWidth = 145;
+        double btnHeight = 40;
+        double gap = 4;
+
+        double btnX = towerPixelX + 32 + gap;
+        if (btnX + btnWidth > 800) {
+            btnX = towerPixelX - 32 - gap - btnWidth;
+        }
+
+        double upgradeBtnY = towerPixelY - btnHeight - gap;
+        double sellBtnY = upgradeBtnY + btnHeight + gap;
+
+        if (upgradeBtnY < 0) {
+            upgradeBtnY = gap;
+            sellBtnY = upgradeBtnY + btnHeight + gap;
+        }
+        if (sellBtnY + btnHeight > 600) {
+            sellBtnY = 600 - btnHeight - gap;
+            upgradeBtnY = sellBtnY - btnHeight - gap;
+        }
+
+        Main.upgradeButton.setLayoutX(btnX);
+        Main.upgradeButton.setLayoutY(upgradeBtnY);
+        Main.sellButton.setLayoutX(btnX);
+        Main.sellButton.setLayoutY(sellBtnY);
+
         Main.rangePreviewPlaced.setCenterX(tX * 64);
         Main.rangePreviewPlaced.setCenterY(tY * 64);
 
@@ -180,6 +224,16 @@ public class InputManager {
                     Main.upgradeButton.setText("Max Level");
                 }
             }
+        });
+
+        Main.sellButton.setOnMouseClicked(e -> {
+            tower.remove();
+            GameWorld.occupied.remove(new Point2D(tX, tY));
+            Money.addMoney(tower.getSellValue());
+            isInTowerSelectedMode = false;
+            Main.upgradeButton.setVisible(false);
+            Main.sellButton.setVisible(false);
+            Main.rangePreviewPlaced.setVisible(false);
         });
 
     }
@@ -215,6 +269,7 @@ public class InputManager {
      */
     public static void pressed(KeyCode e) {
         Main.upgradeButton.setVisible(false);
+        Main.sellButton.setVisible(false);
         if (e == KeyCode.ESCAPE) {
             isInPlaceMode = false;
             isInTowerSelectedMode = false;
@@ -223,6 +278,7 @@ public class InputManager {
             Main.rangePreviewPlaced.setVisible(false);
             Main.towerPreview.setVisible(false);
             Main.upgradeButton.setVisible(false);
+            Main.sellButton.setVisible(false);
         }
 
         if (e == KeyCode.M) {

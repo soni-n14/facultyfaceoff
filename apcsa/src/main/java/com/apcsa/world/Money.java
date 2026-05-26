@@ -1,6 +1,7 @@
 package com.apcsa.world;
 
 import com.apcsa.Main;
+import javafx.application.Platform;
 
 /**
  * Manages the player's gold balance and keeps the HUD money display in sync.
@@ -15,7 +16,7 @@ public class Money {
      */
     public static void addMoney(int amount) {
         money += amount;
-        Main.moneyText.setText("Money: " + money);
+        Platform.runLater(() -> Main.moneyText.setText("Money: " + money));
     }
 
     /**
@@ -23,12 +24,12 @@ public class Money {
      */
     public static void subtractMoney(int amount) {
         money -= amount;
-        Main.moneyText.setText("Money: " + money);
+        Platform.runLater(() -> Main.moneyText.setText("Money: " + money));
     }
 
     public static void resetMoney() {
         money = 100;
-        Main.moneyText.setText("Money: " + money);
+        Platform.runLater(() -> Main.moneyText.setText("Money: " + money));
     }
 
     /**

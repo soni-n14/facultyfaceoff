@@ -1,6 +1,7 @@
 package com.apcsa.world;
 
 import com.apcsa.Main;
+import javafx.application.Platform;
 
 /**
  * Tracks the player's base health and triggers the game-over state when it
@@ -21,11 +22,11 @@ public class Health {
         baseHealth -= amount;
         if (baseHealth <= 0) {
             baseHealth = 0;
-            Main.baseHealthText.setText(baseHealth + "/" + maxBaseHealth);
+            Platform.runLater(() -> Main.baseHealthText.setText(baseHealth + "/" + maxBaseHealth));
             gameOver();
             return;
         }
-        Main.baseHealthText.setText(baseHealth + "/" + maxBaseHealth);
+        Platform.runLater(() -> Main.baseHealthText.setText(baseHealth + "/" + maxBaseHealth));
     }
 
     /**
