@@ -217,7 +217,7 @@ public class Main extends Application {
      */
     public void setUpButtons() {
         signoreButton = new Button("Signore: $50");
-        farmButton = new Button("Farm: $300");
+        farmButton = new Button("Farm: $100");
         kirshButton = new Button("Kirsh: $300");
         welshButton = new Button("Welsh: $350");
         tsaiButton = new Button("Tsai: $125");
